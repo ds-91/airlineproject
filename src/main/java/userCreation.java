@@ -37,18 +37,26 @@ public class userCreation extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel1.setName("userCreationPanel");
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtuserid = new javax.swing.JLabel();
+        txtuserid.setName("textUserId");
         txtfirstname = new javax.swing.JTextField();
+        txtfirstname.setName("textFirstName");
         txtlastname = new javax.swing.JTextField();
+        txtlastname.setName("textLastName");
         txtusername = new javax.swing.JTextField();
+        txtusername.setName("textUserName");
         jButton1 = new javax.swing.JButton();
+        jButton1.setName("buttonAdd");
         jButton2 = new javax.swing.JButton();
+        jButton2.setName("buttonCancel");
         txtpassword = new javax.swing.JPasswordField();
+        txtpassword.setName("textPassword");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("User Creation"));
 

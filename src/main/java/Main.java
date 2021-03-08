@@ -24,17 +24,29 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane1.setName("desktopPane");
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuBar1.setName("menuBar");
         jMenu1 = new javax.swing.JMenu();
+        jMenu1.setName("customerMenu");
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem1.setName("addCustomerMenuItem");
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem2.setName("searchCustomerMenuItem");
         jMenu2 = new javax.swing.JMenu();
+        jMenu2.setName("ticketsMenu");
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem3.setName("bookTicketMenuItem");
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem6.setName("ticketReportMenuItem");
         jMenu3 = new javax.swing.JMenu();
+        jMenu3.setName("flightMenu");
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem4.setName("addFlightMenuItem");
         jMenu4 = new javax.swing.JMenu();
+        jMenu4.setName("userMenu");
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem5.setName("userCreationMenuItem");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1366, 768));
