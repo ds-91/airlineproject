@@ -670,7 +670,7 @@ public class searchCustomer extends javax.swing.JInternalFrame {
         txtpassport.setText(passport.trim());
         txtaddress.setText(address.trim());
         txtcontact.setText(contact.trim());
-        // txtdob.setDate(date1);
+        txtdob.setDate(date1);
         txtphoto.setIcon(newImage);
       }
 
