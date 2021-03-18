@@ -11,7 +11,20 @@ public class FlightDAO {
     }
 
     public boolean createFlight(Flight flight) {
-        if (flight == null || flight.checkForNullOrEmpty()) {
+        if (flight == null) {
+            return false;
+        }
+
+        //maybe there is a better way
+        if (flight.getId() == null || flight.getId().isEmpty() ||
+            flight.getFlightname() == null || flight.getFlightname().isEmpty() ||
+            flight.getSource() == null || flight.getSource().isEmpty() ||
+            flight.getDepart() == null || flight.getDepart().isEmpty() ||
+            flight.getDate() == null || flight.getDate().isEmpty() ||
+            flight.getDeptime() == null || flight.getDeptime().isEmpty() ||
+            flight.getArrtime() == null || flight.getArrtime().isEmpty() ||
+            flight.getFlightcharge() == null || flight.getFlightcharge().isEmpty()) {
+
             return false;
         }
 

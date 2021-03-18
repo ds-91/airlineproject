@@ -1,5 +1,4 @@
 import java.lang.reflect.Field;
-import java.util.stream.Stream;
 
 public class Flight {
 
@@ -86,18 +85,5 @@ public class Flight {
 
     public void setFlightcharge(String flightcharge) {
         this.flightcharge = flightcharge;
-    }
-
-    public boolean checkForNullOrEmpty() {
-        for (Field f : getClass().getDeclaredFields()) {
-            try {
-                if (f.get(this) == null || f.get(this).toString().isEmpty()) {
-                    return true;
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
     }
 }

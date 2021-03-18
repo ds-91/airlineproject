@@ -10,21 +10,20 @@ public class FlightTests {
 
     private Connection con;
     private FlightDAO flightDAO;
+    private Flight testFlight;
 
     @BeforeEach
     public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
+        this.testFlight = new Flight("test_id", "test_name",
+            "test_source", "test_depart", "test_date",
+            "test_deptime", "test_arrtime", "test_flightcharge");
         this.con = databaseManager.getDatabaseConnection();
         this.flightDAO = new FlightDAO();
     }
 
     @Test
     public void validFlightCreation() {
-        Flight testFlight = new Flight("test_id", "test_flightname",
-            "test_source", "test_depart", "test_date",
-            "test_deptime", "test_arrtime",
-            "test_flightcharge");
-
         boolean success = this.flightDAO.createFlight(testFlight);
 
         Assertions.assertTrue(success);
@@ -38,36 +37,66 @@ public class FlightTests {
     }
 
     @Test
-    public void invalidMissingInfoFlightCreation() {
-        Flight testFlight = new Flight(null, "", "", null,
-            null, "", null, null);
-        Flight emptyStringFlight = new Flight("test_id", "", "asdf", "asdf",
-            "asdf", "asdf", "asdf", "asdf");
-        Flight nullFieldFlight = new Flight("test_id", "", "asdf", "asdf",
-            "asdf", "asdf", null, "asdf");
+    public void invalidEmptyFieldFlightCreation() {
+        testFlight.setFlightname("");
 
         Assertions.assertFalse(this.flightDAO.createFlight(testFlight));
-        Assertions.assertFalse(this.flightDAO.createFlight(emptyStringFlight));
-        Assertions.assertFalse(this.flightDAO.createFlight(nullFieldFlight));
+    }
+
+    @Test
+    public void invalidNullFieldFlightCreation() {
+        testFlight.setSource(null);
+
+        Assertions.assertFalse(this.flightDAO.createFlight(testFlight));
+    }
+
+    @Test
+    public void validGetFlightInformation() {
+        Assertions.assertEquals("test_id", testFlight.getId());
+        Assertions.assertEquals("test_name", testFlight.getFlightname());
+        Assertions.assertEquals("test_source", testFlight.getSource());
+        Assertions.assertEquals("test_depart", testFlight.getDepart());
+        Assertions.assertEquals("test_date", testFlight.getDate());
+        Assertions.assertEquals("test_deptime", testFlight.getDeptime());
+        Assertions.assertEquals("test_arrtime", testFlight.getArrtime());
+        Assertions.assertEquals("test_flightcharge", testFlight.getFlightcharge());
+    }
+
+    @Test
+    public void validSetFlightInformation() {
+        testFlight.setId("edited_id");
+        testFlight.setFlightname("edited_name");
+        testFlight.setSource("edited_source");
+        testFlight.setDepart("edited_depart");
+        testFlight.setDate("edited_date");
+        testFlight.setDeptime("edited_deptime");
+        testFlight.setArrtime("edited_arrtime");
+        testFlight.setFlightcharge("edited_flightcharge");
+
+        Assertions.assertEquals("edited_id", testFlight.getId());
+        Assertions.assertEquals("edited_name", testFlight.getFlightname());
+        Assertions.assertEquals("edited_source", testFlight.getSource());
+        Assertions.assertEquals("edited_depart", testFlight.getDepart());
+        Assertions.assertEquals("edited_date", testFlight.getDate());
+        Assertions.assertEquals("edited_deptime", testFlight.getDeptime());
+        Assertions.assertEquals("edited_arrtime", testFlight.getArrtime());
+        Assertions.assertEquals("edited_flightcharge", testFlight.getFlightcharge());
+    }
+
+    @Test
+    public void invalidDAOInsertionError() {
+
     }
 
     @AfterEach
-    public void teardown() {
-        try {
-            PreparedStatement ps = this.con.prepareStatement("DELETE FROM flight"
-                + " WHERE id = ?");
-            ps.setString(1, "test_id");
-            ps.executeUpdate();
+    public void teardown() throws SQLException {
+        PreparedStatement ps = this.con.prepareStatement("DELETE FROM flight"
+            + " WHERE id = ?");
+        ps.setString(1, "test_id");
+        ps.executeUpdate();
 
-            this.con.close();
-            this.con = null;
-            this.flightDAO = null;
-        } catch (SQLException e) {
-            if (this.con == null) {
-                System.out.println("Con was null when closing");
-            } else {
-                e.printStackTrace();
-            }
-        }
+        this.con.close();
+        this.con = null;
+        this.flightDAO = null;
     }
 }
