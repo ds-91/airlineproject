@@ -83,11 +83,6 @@ public class FlightTests {
         Assertions.assertEquals("edited_flightcharge", testFlight.getFlightcharge());
     }
 
-    @Test
-    public void invalidDAOInsertionError() {
-
-    }
-
     @AfterEach
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM flight"
@@ -98,5 +93,6 @@ public class FlightTests {
         this.con.close();
         this.con = null;
         this.flightDAO = null;
+        this.testFlight = null;
     }
 }

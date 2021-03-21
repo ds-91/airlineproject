@@ -1,5 +1,3 @@
-import java.lang.reflect.Field;
-
 public class Flight {
 
     private String id;
