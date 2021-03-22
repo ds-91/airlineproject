@@ -21,8 +21,4 @@ public class DatabaseManager {
   public Connection getDatabaseConnection() {
     return con;
   }
-
-  public Connection getCon() {
-    return con;
-  }
 }
