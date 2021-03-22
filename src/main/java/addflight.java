@@ -22,6 +22,8 @@ public class addflight extends javax.swing.JInternalFrame {
   public addflight() {
     initComponents();
     autoID();
+
+
   }
 
   Connection con;
