@@ -1,27 +1,19 @@
 import com.toedter.calendar.JDateChooser;
-import java.awt.Image;
+import jdk.internal.joptsimple.internal.Strings;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,15 +24,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class searchCustomer extends javax.swing.JInternalFrame {
 
   /** Creates new form addCustomer */
-  public searchCustomer() {
-    initComponents();
-  }
-
-  Connection con;
-  PreparedStatement pst;
+  private CustomerDAO customerDAO;
+  private Customer customer;
 
   String path = null;
   byte[] userimage = null;
+
+  /** Creates new form addCustomer */
+  public searchCustomer() {
+    initComponents();
+    this.customerDAO = new CustomerDAO();
+  }
 
   /**
    * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -565,51 +559,23 @@ public class searchCustomer extends javax.swing.JInternalFrame {
   private void jButton2ActionPerformed(
       java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton2ActionPerformed
     // TODO add your handling code here:
-
-    String id = txtcustid.getText();
-    String firstname = txtfirstname.getText();
-    String lastname = txtlastname.getText();
-    String nic = txtnic.getText();
-    String passport = txtpassport.getText();
-    String address = txtaddress.getText();
-
+    if(!Strings.isNullOrEmpty(txtcustid.getText())) {
+    customer.setFirstname(txtfirstname.getText());
+    customer.setLastname(txtlastname.getText());
+    customer.setNIC(txtnic.getText());
+    customer.setPassport(txtpassport.getText());
+    customer.setAddress(txtaddress.getText());
     DateFormat da = new SimpleDateFormat("yyyy-MM-dd");
     String date = da.format(txtdob.getDate());
-    String Gender;
+    customer.setDOB(date);
+    customer.setGender(r1.isSelected() ? "Male" : "Female");
+    customer.setContact(txtcontact.getText());
 
-    if (r1.isSelected()) {
-      Gender = "Male";
-    } else {
-      Gender = "FeMale";
-    }
+    boolean success = customerDAO.updateCustomer(customer);
 
-    String contact = txtcontact.getText();
+    if(success)
+      JOptionPane.showMessageDialog(null, "Registation Created");
 
-    try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      con = DriverManager.getConnection("jdbc:mysql://localhost/airline", "root", "password");
-      pst =
-          con.prepareStatement(
-              "update customer set firstname = ?,lastname = ?,nic = ?,passport = ?,address= ?,dob = ?,gender = ?,contact = ?,photo = ? where id = ?");
-
-      pst.setString(1, firstname);
-      pst.setString(2, lastname);
-      pst.setString(3, nic);
-      pst.setString(4, passport);
-      pst.setString(5, address);
-      pst.setString(6, date);
-      pst.setString(7, Gender);
-      pst.setString(8, contact);
-      pst.setBytes(9, userimage);
-      pst.setString(10, id);
-      pst.executeUpdate();
-
-      JOptionPane.showMessageDialog(null, "Registation Updateddddd.........");
-
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-      Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
     }
   } // GEN-LAST:event_jButton2ActionPerformed
 
@@ -626,60 +592,35 @@ public class searchCustomer extends javax.swing.JInternalFrame {
 
     String id = txtcustid.getText();
 
-    try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      con = DriverManager.getConnection("jdbc:mysql://localhost/airline", "root", "password");
-      pst = con.prepareStatement("select * from customer where id = ?");
-      pst.setString(1, id);
-      ResultSet rs = pst.executeQuery();
+    Customer search;
+    search = customerDAO.searchCustomer(id);
 
-      if (rs.next() == false) {
-        JOptionPane.showMessageDialog(this, "Record not Found");
+    if(search == null){
+      JOptionPane.showMessageDialog(this, "Record not Found");
+    }else {
+      txtfirstname.setText(search.getFirstname().trim());
+      txtlastname.setText(search.getLastname().trim());
+      txtnic.setText(search.getNIC().trim());
+      txtpassport.setText(search.getPassport().trim());
+      txtaddress.setText(search.getAddress().trim());
+      txtcontact.setText(search.getContact().trim());
+      // txtdob.setDate(date1); //TODO set date
+
+      ImageIcon image = new ImageIcon(search.getUserImage());
+      Image im = image.getImage();
+      Image myImg =
+              im.getScaledInstance(txtphoto.getWidth(), txtphoto.getHeight(), Image.SCALE_SMOOTH);
+      ImageIcon newImage = new ImageIcon(myImg);
+      txtphoto.setIcon(newImage);
+
+
+      if (search.getGender().equals("Female")) {
+        r1.setSelected(false);
+        r2.setSelected(true);
       } else {
-        String fname = rs.getString("firstname");
-        String lname = rs.getString("lastname");
-        String nic = rs.getString("nic");
-        String passport = rs.getString("passport");
-
-        String address = rs.getString("address");
-        String dob = rs.getString("dob");
-        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
-        String gender = rs.getString("gender");
-
-        Blob blob = rs.getBlob("photo");
-        byte[] _imagebytes = blob.getBytes(1, (int) blob.length());
-        ImageIcon image = new ImageIcon(_imagebytes);
-        Image im = image.getImage();
-        Image myImg =
-            im.getScaledInstance(txtphoto.getWidth(), txtphoto.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon newImage = new ImageIcon(myImg);
-
-        if (gender.equals("Female")) {
-          r1.setSelected(false);
-          r2.setSelected(true);
-
-        } else {
-          r1.setSelected(true);
-          r2.setSelected(false);
-        }
-        String contact = rs.getString("contact");
-
-        txtfirstname.setText(fname.trim());
-        txtlastname.setText(lname.trim());
-        txtnic.setText(nic.trim());
-        txtpassport.setText(passport.trim());
-        txtaddress.setText(address.trim());
-        txtcontact.setText(contact.trim());
-        txtdob.setDate(date1);
-        txtphoto.setIcon(newImage);
+        r1.setSelected(true);
+        r2.setSelected(false);
       }
-
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(searchCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-      Logger.getLogger(searchCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ParseException ex) {
-      Logger.getLogger(searchCustomer.class.getName()).log(Level.SEVERE, null, ex);
     }
   } // GEN-LAST:event_jButton4ActionPerformed
 
@@ -710,6 +651,6 @@ public class searchCustomer extends javax.swing.JInternalFrame {
   private javax.swing.JTextField txtnic;
   private javax.swing.JTextField txtpassport;
   private javax.swing.JLabel txtphoto;
-  private com.toedter.calendar.JDateChooser txtdob;
+  private JDateChooser txtdob;
   // End of variables declaration//GEN-END:variables
 }
