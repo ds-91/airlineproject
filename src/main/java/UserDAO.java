@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     private DatabaseManager databaseManager;
-    private Connection con = databaseManager.getCon();
+    private Connection con = databaseManager.getDatabaseConnection();
 
     public UserDAO() throws SQLException {
         this.databaseManager = new DatabaseManager();
