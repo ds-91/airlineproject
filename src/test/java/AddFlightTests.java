@@ -1,7 +1,6 @@
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

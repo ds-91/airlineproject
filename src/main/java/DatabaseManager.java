@@ -6,10 +6,6 @@ public class DatabaseManager {
 
   private Connection con;
 
-  public DatabaseManager(Connection con) {
-    this.con = con;
-  }
-
   public DatabaseManager() {
     try {
       con = DriverManager.getConnection(DB_URL, "root", "password");
