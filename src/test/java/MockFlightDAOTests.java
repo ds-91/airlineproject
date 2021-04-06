@@ -15,7 +15,7 @@ public class MockFlightDAOTests {
     private FlightDAO mockDAO;
 
     @InjectMocks
-    private addflight mockAddFlight;
+    private addflight addFlight;
 
     private Flight flight;
 
@@ -29,15 +29,15 @@ public class MockFlightDAOTests {
 
     @Test
     public void createValidFlightFromGUI() {
-        JButton buttonAddFlight = mockAddFlight.getButtonAddFlight();
+        JButton buttonAddFlight = addFlight.getButtonAddFlight();
 
-        mockAddFlight.getTxtflightname().setText("TEST_FLIGHT_NAME");
-        mockAddFlight.getTxtdate().setDate(new Date(2021, 3, 30));
-        mockAddFlight.getTxtdtime().setText("TEST_DEPART_TIME");
-        mockAddFlight.getTxtarrtime().setText("TEST_ARRIVAL_TIME");
-        mockAddFlight.getTxtflightcharge().setText("TEST_FLIGHT_CHARGE");
-        mockAddFlight.getTxtsource().setSelectedIndex(0);
-        mockAddFlight.getTxtdepart().setSelectedIndex(0);
+        addFlight.getTxtflightname().setText("TEST_FLIGHT_NAME");
+        addFlight.getTxtdate().setDate(new Date(2021, 3, 30));
+        addFlight.getTxtdtime().setText("TEST_DEPART_TIME");
+        addFlight.getTxtarrtime().setText("TEST_ARRIVAL_TIME");
+        addFlight.getTxtflightcharge().setText("TEST_FLIGHT_CHARGE");
+        addFlight.getTxtsource().setSelectedIndex(0);
+        addFlight.getTxtdepart().setSelectedIndex(0);
 
         Mockito.when(mockDAO.createFlight(Mockito.any(Flight.class))).thenReturn(true);
         buttonAddFlight.doClick();
@@ -47,7 +47,7 @@ public class MockFlightDAOTests {
     @AfterEach
     public void teardown() {
         mockDAO = null;
-        mockAddFlight = null;
+        addFlight = null;
         flight = null;
     }
 }
