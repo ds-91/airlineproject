@@ -24,9 +24,8 @@ public class DatabaseTests {
     stubDatabase.insertCustomer(customer);
 
 
-    Assert.assertEquals("John", stubDatabase.getFirstName());
-    Assert.assertEquals("Smith", stubDatabase.getLastName());
-    Assert.assertEquals("Male", stubDatabase.getGender());
-    return;
+    Assertions.assertEquals("first_name", stubDatabase.getFirstName());
+    Assertions.assertEquals("last_name", stubDatabase.getLastName());
+    Assertions.assertEquals("gender", stubDatabase.getGender());
   }
 }
