@@ -23,10 +23,8 @@ public class DatabaseTests {
     StubDatabase stubDatabase = new StubDatabase();
     stubDatabase.insertCustomer(customer);
 
-
     Assert.assertEquals("first_name", stubDatabase.getFirstName());
     Assert.assertEquals("last_name", stubDatabase.getLastName());
     Assert.assertEquals("gender", stubDatabase.getGender());
-    return;
   }
 }
