@@ -11,7 +11,7 @@ public class ticketDAO {
 
     }
 
-    public boolean ticketC (ticketC ticket) {
+    public boolean createTicket (ticketC ticket) {
         if (ticket == null){
             return false;
         }
@@ -31,7 +31,8 @@ public class ticketDAO {
         Connection con = this.databaseManager.getDatabaseConnection();
         int success = 0;
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO" + "ticket(id,flightid, custid, classes, " +
+            PreparedStatement pst = con.prepareStatement("INSERT INTO " +
+                "ticket(id,flightid, custid, classes, " +
                     "price, seats, date) VALUES (?,?,?,?,?,?,?)");
             pst.setString(1, ticket.getId());
             pst.setString(2, ticket.getFlightid());
