@@ -13,7 +13,7 @@ public class TicketCTest {
     private ticketC testTicket;
 
     @BeforeEach
-    public void setup() throws SQLException {
+    public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
         this.testTicket = new ticketC("test_id", "test_flightid",
                 "test_custid", "test_classes", "test_price",

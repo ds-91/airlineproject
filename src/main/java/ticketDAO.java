@@ -6,9 +6,8 @@ public class ticketDAO {
 
     private DatabaseManager databaseManager;
 
-    public ticketDAO() throws SQLException {
+    public ticketDAO() {
         this.databaseManager = new DatabaseManager();
-
     }
 
     public boolean createTicket (ticketC ticket) {
