@@ -29,13 +29,13 @@ public class UnitTestSuite {
         this.customerDAO = new CustomerDAO();
         byte [] userimage = new byte[]{};
         this.customerID = customerDAO.autoID();
-        this.testFlight = new Flight("test_id", "test_name",
+        this.testFlight = new Flight("10", "test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
         this.testCustomer = new Customer(customerID, "first_name",
             "last_name", "gender", "address",
             "dob", "contact", userimage, "nic", "passport");
-        this.testTicket = new ticketC("test_id", "test_flightid",
+        this.testTicket = new ticketC("10", "test_flightid",
             "test_custid", "test_classes", "test_price",
             "test_seats", "test_date");
         this.con = databaseManager.getDatabaseConnection();
