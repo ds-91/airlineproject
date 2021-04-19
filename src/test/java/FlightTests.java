@@ -83,6 +83,12 @@ public class FlightTests {
         Assertions.assertEquals("edited_flightcharge", testFlight.getFlightcharge());
     }
 
+    @Test
+    public void validFlightCreationNoGUI() {
+        boolean success = this.flightDAO.createFlight(testFlight);
+        Assertions.assertTrue(success);
+    }
+
     @AfterEach
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM flight"

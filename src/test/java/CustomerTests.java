@@ -33,14 +33,14 @@ public class CustomerTests {
     }
 
     @Test
-    public void invalidNullFlightCreation() {
+    public void invalidNullCustomerCreation() {
         boolean success = this.customerDAO.createCustomer(null);
 
         Assertions.assertFalse(success);
     }
 
     @Test
-    public void invalidEmptyFieldFlightCreation() {
+    public void invalidEmptyFieldCustomerCreation() {
         testCustomer.setFirstname("");
 
         Assertions.assertFalse(this.customerDAO.createCustomer(testCustomer));
