@@ -61,6 +61,18 @@ public class LoginTests {
     Assertions.assertNotNull(result);
   }
 
+  @Test
+  public void canEnterUsername() {
+    window.textBox("textUser").setText("asdf");
+    Assertions.assertEquals("asdf", window.textBox("textUser").text());
+  }
+
+  @Test
+  public void canEnterPassword() {
+    window.textBox("textPass").setText("asdf");
+    Assertions.assertEquals("asdf", window.textBox("textPass").text());
+  }
+
   @AfterEach
   public void teardown() {
     window.cleanUp();

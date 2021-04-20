@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import javax.swing.JButton;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import org.assertj.swing.edt.GuiActionRunner;
+import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +13,8 @@ public class AddFlightTests {
     private Connection con;
     private FlightDAO flightDAO;
     private Flight testFlight;
-    addflight testAddFlightGui;
+    private addflight testAddFlightGui;
+    private FrameFixture window;
 
     @BeforeEach
     public void setup() {
@@ -21,7 +24,10 @@ public class AddFlightTests {
             "test_deptime", "test_arrtime", "test_flightcharge");
         this.con = databaseManager.getDatabaseConnection();
         this.flightDAO = new FlightDAO();
-        testAddFlightGui = new addflight();
+        this.testAddFlightGui = new addflight();
+
+        Main frame = GuiActionRunner.execute(() -> new Main());
+        window = new FrameFixture(frame);
     }
 
     @Test
@@ -127,8 +133,49 @@ public class AddFlightTests {
         Assertions.assertEquals("Error creating flight!", testAddFlightGui.getSuccessPane().getMessage().toString());
     }
 
+    @Test
+    public void canEditFlightName() {
+        window.show();
+        window.menuItem("flightMenu").click();
+        window.menuItem("addFlightMenuItem").click();
+
+        window.textBox("txtflightname").setText("test_flight");
+        Assertions.assertEquals("test_flight", window.textBox("txtflightname").text());
+    }
+
+    @Test
+    public void canEditDepartTime() {
+        window.show();
+        window.menuItem("flightMenu").click();
+        window.menuItem("addFlightMenuItem").click();
+
+        window.textBox("txtdtime").setText("test_depttime");
+        Assertions.assertEquals("test_depttime", window.textBox("txtdtime").text());
+    }
+
+    @Test
+    public void canEditArrivalTime() {
+        window.show();
+        window.menuItem("flightMenu").click();
+        window.menuItem("addFlightMenuItem").click();
+
+        window.textBox("txtarrtime").setText("test_arrtime");
+        Assertions.assertEquals("test_arrtime", window.textBox("txtarrtime").text());
+    }
+
+    @Test
+    public void canEditFlightCharge() {
+        window.show();
+        window.menuItem("flightMenu").click();
+        window.menuItem("addFlightMenuItem").click();
+
+        window.textBox("txtflightcharge").setText("test_charge");
+        Assertions.assertEquals("test_charge", window.textBox("txtflightcharge").text());
+    }
+
     @AfterEach
     public void teardown() throws SQLException {
+        window.cleanUp();
         this.con.close();
         this.con = null;
         this.flightDAO = null;
