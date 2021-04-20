@@ -3,17 +3,6 @@ import org.junit.jupiter.api.Assertions;
 
 public class UserTest {
 
-    //surround with try/catch instead?
-    @Test
-    public void AllFieldsRequired() {
-        Assertions.assertThrows(
-                IllegalStateException.class,
-                () -> {
-                    //User("firstName", "lastName", "username", "password");
-                }
-        );
-    }
-
     @Test
     public void firstNameValid() {
         User user = new User(1, "firstName", "lastName", "username", "password");
