@@ -25,6 +25,7 @@ public class AddFlightTests {
     }
 
     @Test
+
     public void validInitGui() {
         Assertions.assertNotNull(testAddFlightGui);
     }
