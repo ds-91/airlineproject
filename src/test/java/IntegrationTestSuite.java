@@ -1,8 +1,6 @@
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.sql.Date;
 import javax.swing.JButton;
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-public class MockFlightDAOTests {
-
+public class IntegrationTestSuite {
     @Mock
     private FlightDAO mockDAO;
 
@@ -20,15 +17,13 @@ public class MockFlightDAOTests {
     private addflight addFlight;
 
     private Flight flight;
-    private Robot robot;
 
     @BeforeEach
-    public void setup() throws AWTException {
+    public void setup() {
         MockitoAnnotations.initMocks(this);
         flight = new Flight("test_id", "test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
-        robot = new Robot();
     }
 
     @Test
@@ -45,8 +40,6 @@ public class MockFlightDAOTests {
 
         Mockito.when(mockDAO.createFlight(Mockito.any(Flight.class))).thenReturn(true);
         buttonAddFlight.doClick();
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
         Mockito.verify(mockDAO).createFlight(Mockito.any(Flight.class));
     }
 
@@ -55,5 +48,20 @@ public class MockFlightDAOTests {
         mockDAO = null;
         addFlight = null;
         flight = null;
+    }
+
+    @Test
+    public void databaseStubTest()
+    {
+        byte [] userimage = new byte[]{};
+        Customer customer = new Customer("01", "first_name",
+            "last_name", "gender", "address",
+            "dob", "contact", userimage, "nic", "passport");
+        StubDatabase stubDatabase = new StubDatabase();
+        stubDatabase.insertCustomer(customer);
+
+        Assert.assertEquals("first_name", stubDatabase.getFirstName());
+        Assert.assertEquals("last_name", stubDatabase.getLastName());
+        Assert.assertEquals("gender", stubDatabase.getGender());
     }
 }
