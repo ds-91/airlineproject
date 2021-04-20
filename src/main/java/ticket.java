@@ -211,15 +211,12 @@ public class ticket extends javax.swing.JInternalFrame {
 
     txtfirstname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     txtfirstname.setForeground(new java.awt.Color(255, 0, 0));
-    txtfirstname.setText("jLabel9");
 
     txtlastname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     txtlastname.setForeground(new java.awt.Color(255, 0, 0));
-    txtlastname.setText("jLabel10");
 
     txtpassport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     txtpassport.setForeground(new java.awt.Color(255, 0, 0));
-    txtpassport.setText("jLabel11");
 
     jButton4.setText("Search");
     jButton4.addActionListener(
@@ -326,15 +323,12 @@ public class ticket extends javax.swing.JInternalFrame {
 
     flightno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
     flightno.setForeground(new java.awt.Color(255, 0, 0));
-    flightno.setText("jLabel18");
 
     flightname.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
     flightname.setForeground(new java.awt.Color(255, 0, 0));
-    flightname.setText("jLabel19");
 
     txtdept.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
     txtdept.setForeground(new java.awt.Color(255, 0, 0));
-    txtdept.setText("jLabel20");
 
     txtclass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Economy", "Business"}));
 
@@ -480,7 +474,6 @@ public class ticket extends javax.swing.JInternalFrame {
 
     txttotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
     txttotal.setForeground(new java.awt.Color(255, 0, 0));
-    txttotal.setText("jLabel4");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
