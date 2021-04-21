@@ -31,7 +31,7 @@ public class ticketDAO {
         int success = 0;
         try {
             PreparedStatement pst = con.prepareStatement("INSERT INTO " +
-                "ticket(id,flightid, custid, classes, " +
+                "ticket(id,flightid, custid, class, " +
                     "price, seats, date) VALUES (?,?,?,?,?,?,?)");
             pst.setString(1, ticket.getId());
             pst.setString(2, ticket.getFlightid());

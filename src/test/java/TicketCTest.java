@@ -15,7 +15,7 @@ public class TicketCTest {
     @BeforeEach
     public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
-        this.testTicket = new ticketC("test_id", "test_flightid",
+        this.testTicket = new ticketC("3423423423", "test_flightid",
                 "test_custid", "test_classes", "test_price",
                 "test_seats", "test_date");
         this.con = databaseManager.getDatabaseConnection();
@@ -86,7 +86,7 @@ public class TicketCTest {
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM ticket"
                 + " WHERE id = ?");
-        ps.setString(1, "test_id");
+        ps.setString(1, "3423423423");
         ps.executeUpdate();
 
         this.con.close();
