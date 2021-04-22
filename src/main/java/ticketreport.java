@@ -112,12 +112,14 @@ public class ticketreport extends javax.swing.JInternalFrame {
     this.hide();
   } // GEN-LAST:event_jButton1ActionPerformed
 
+  public ResultSet rs;
+
   public void LoadData() {
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
       con = DriverManager.getConnection("jdbc:mysql://localhost/airline", "root", "password");
       pst = con.prepareStatement("SELECT * from ticket");
-      ResultSet rs = pst.executeQuery();
+      rs = pst.executeQuery();
 
       ResultSetMetaData rsm = rs.getMetaData();
       int c;
@@ -127,7 +129,7 @@ public class ticketreport extends javax.swing.JInternalFrame {
       Df.setRowCount(0);
 
       while (rs.next()) {
-        Vector v2 = new Vector();
+        Vector<String> v2 = new Vector<>();
 
         for (int i = 1; i <= c; i++) {
           v2.add(rs.getString("id"));
