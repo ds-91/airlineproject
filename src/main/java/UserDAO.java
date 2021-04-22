@@ -1,52 +1,66 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAO {
 
     private DatabaseManager databaseManager;
-    private Connection con = databaseManager.getDatabaseConnection();
+    private Connection con;
 
-    public UserDAO() throws SQLException {
+    public UserDAO() {
         this.databaseManager = new DatabaseManager();
+        this.con  = databaseManager.getDatabaseConnection();
     }
 
-    //Using ID is ignored because it is auto genereated
-    public void insertNewUser(User user) {
+    public boolean insertNewUser(User user) {
+        if (user == null) {
+            return false;
+        }
+        if (user.getFirstName() == null || user.getFirstName().isEmpty() ||
+                user.getLastName() == null || user.getLastName().isEmpty() ||
+                user.getUsername() == null || user.getUsername().isEmpty() ||
+                user.getPassword() == null || user.getPassword().isEmpty()) {
+            return false;
+        }
         try {
-            String sql = "INSERT INTO USER VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO USER VALUES(?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getUsername());
-            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(1, user.getId());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getUsername());
+            preparedStatement.setString(5, user.getPassword());
 
             preparedStatement.execute();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
-    //To find a unique user and verify they are unique when creating new users
-    public boolean userExists(User user) {
+    public String nextIdInDatabase() {
         try {
-            String sql = "SELECT * FROM USER WHERE USERNAME = ? and PASSWORD = ?";
 
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                return true;
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("select MAX(id) from user");
+            rs.next();
+            rs.getString("MAX(id)");
+            if (rs.getString("MAX(id)") == null) {
+                return "UO001";
+            } else {
+                long id =
+                        Long.parseLong(rs.getString("MAX(id)").substring(2, rs.getString("MAX(id)").length()));
+                id++;
+                return "UO" + String.format("%03d", id);
             }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
         }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
+
+
 }
