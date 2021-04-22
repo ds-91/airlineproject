@@ -108,6 +108,7 @@ public class addCustomer extends javax.swing.JInternalFrame {
                     .createSequentialGroup()
                     .addGap(26, 26, 26)
                     .addGroup(
+
                         jPanel1Layout
                             .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(
