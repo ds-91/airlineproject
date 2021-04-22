@@ -1,41 +1,46 @@
+import org.junit.After;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 
-import javax.swing.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public class UserDAOTest {
 
-    private User user;
+    private Connection con;
 
-    @Mock
-    private UserDAO userDAO;
 
-    @InjectMocks
-    private userCreation userCreation;
+    private UserDAO userDAO = new UserDAO();
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        user = new User("firstname", "lastname",
-                "username", "password");
+
+    private User user = new User("firstname", "lastname",
+                                       "username", "password");
+
+
+    @Test
+    public void validInsertUser() {
+        Assertions.assertTrue(userDAO.insertNewUser(user));
     }
 
     @Test
-    public void createValidFlightFromGUI() {
-        JButton buttonAddUser = userCreation.getButtonAddUser();
+    public void validIdIncrementTest() {
+        int current = userDAO.nextIdInDatabase();
+        userDAO.insertNewUser(user);
+        Assertions.assertEquals(current + 1, userDAO.nextIdInDatabase());
 
-        userCreation.getTxtfirstname().setText("test_first_name");
-        userCreation.getTxtlastname().setText("test_last_name");
-        userCreation.getTxtusername().setText("username");
-        userCreation.getTxtpassword().setText("password");
+    }
 
-        Mockito.when(userDAO.insertNewUser(Mockito.any(User.class))).thenReturn(true);
-        buttonAddUser.doClick();
-        Mockito.verify(userDAO).insertNewUser(Mockito.any(User.class));
+    @AfterEach
+    public void teardown() throws SQLException {
+        PreparedStatement ps = this.con.prepareStatement("DELETE FROM user " +
+                "where username = ?");
+        ps.setString(1, "username");
+        ps.executeUpdate();
+
+        this.con.close();
 
     }
 }

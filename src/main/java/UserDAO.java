@@ -42,25 +42,6 @@ public class UserDAO {
         return true;
     }
 
-//    //To find a unique user and verify they are unique when creating new users
-//    public boolean userExists(User user) {
-//        Connection con = this.databaseManager.getDatabaseConnection();
-//        try {
-//            String sql = "SELECT * FROM USER WHERE USERNAME = ? and PASSWORD = ?";
-//
-//            PreparedStatement preparedStatement = con.prepareStatement(sql);
-//            preparedStatement.setString(1, user.getUsername());
-//            preparedStatement.setString(2, user.getPassword());
-//
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            if (resultSet.next()) {
-//                return true;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
 
     public int nextIdInDatabase() {
         Connection con = this.databaseManager.getDatabaseConnection();

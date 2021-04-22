@@ -1,6 +1,4 @@
 import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.sql.Date;
 import javax.swing.JButton;
 import org.junit.jupiter.api.AfterEach;
