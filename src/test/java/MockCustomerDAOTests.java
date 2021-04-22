@@ -1,3 +1,5 @@
+import airline.Customer;
+import airline.CustomerDAO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,7 @@ public class MockCustomerDAOTests {
 
     @InjectMocks
 
-    private addCustomer addCustomer;
+    private airline.addCustomer addCustomer;
 
     private Customer customer;
     private Robot robot;

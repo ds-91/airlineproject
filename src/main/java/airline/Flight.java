@@ -1,3 +1,5 @@
+package airline;
+
 public class Flight {
 
     private String id;

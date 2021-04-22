@@ -1,3 +1,5 @@
+package airline;
+
 public class ticketC {
 
     private String id;
@@ -8,7 +10,7 @@ public class ticketC {
     private String seats;
     private String date;
 
-    ticketC (String id, String flightid, String custid, String classes, String price, String seats, String date ) {
+    public ticketC (String id, String flightid, String custid, String classes, String price, String seats, String date ) {
         this.id = id;
         this.flightid = flightid;
         this.custid = custid;

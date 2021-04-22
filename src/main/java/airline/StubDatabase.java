@@ -1,3 +1,5 @@
+package airline;
+
 public class StubDatabase {
     String firstName;
     String lastName;

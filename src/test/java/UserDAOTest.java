@@ -1,11 +1,10 @@
 
+import airline.User;
+import airline.UserDAO;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 
 public class UserDAOTest {

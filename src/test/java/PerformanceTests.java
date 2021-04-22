@@ -1,10 +1,17 @@
 import static org.junit.Assert.assertTrue;
 
+import airline.Customer;
+import airline.CustomerDAO;
+import airline.DatabaseManager;
+import airline.Flight;
+import airline.FlightDAO;
+import airline.ticketC;
+import airline.ticketDAO;
+import airline.ticketreport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +19,7 @@ import org.junit.jupiter.api.Test;
 public class PerformanceTests {
 
     private FlightDAO flightDAO;
-    private ticketDAO ticketDAO;
+    private airline.ticketDAO ticketDAO;
     private CustomerDAO customerDAO;
     private String customerID;
 

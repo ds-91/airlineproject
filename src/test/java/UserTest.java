@@ -1,6 +1,8 @@
+import airline.DatabaseManager;
+import airline.User;
+import airline.UserDAO;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

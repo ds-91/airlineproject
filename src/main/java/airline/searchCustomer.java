@@ -1,3 +1,5 @@
+package airline;
+
 import com.toedter.calendar.JDateChooser;
 import jdk.internal.joptsimple.internal.Strings;
 

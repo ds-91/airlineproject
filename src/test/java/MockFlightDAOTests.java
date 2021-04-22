@@ -1,3 +1,6 @@
+import airline.Flight;
+import airline.FlightDAO;
+import airline.addflight;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;

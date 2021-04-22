@@ -3,6 +3,10 @@
  * Fields match those in the database with the appropriate exception handling. Fields
  * may not be null or empty strings.
  */
+
+package airline;
+
+
 public class User {
     private String id;
     private String firstName;

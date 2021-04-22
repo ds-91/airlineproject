@@ -1,3 +1,6 @@
+import airline.Customer;
+import airline.DatabaseManager;
+import airline.StubDatabase;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
