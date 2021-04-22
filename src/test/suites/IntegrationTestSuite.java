@@ -6,3 +6,4 @@ import org.junit.runner.RunWith;
 @SelectClasses(MockFlightDAOTests.class)
 public class IntegrationTestSuite {
 }
+

@@ -1,3 +1,8 @@
+import airline.DatabaseManager;
+import airline.Flight;
+import airline.FlightDAO;
+import airline.Main;
+import airline.addflight;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;

@@ -1,3 +1,5 @@
+package airline;
+
 public class User {
     private String id;
     private String firstName;

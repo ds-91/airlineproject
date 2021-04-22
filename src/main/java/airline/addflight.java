@@ -1,3 +1,5 @@
+package airline;
+
 import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
 import java.sql.DriverManager;

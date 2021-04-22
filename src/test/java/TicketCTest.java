@@ -1,3 +1,6 @@
+import airline.DatabaseManager;
+import airline.ticketC;
+import airline.ticketDAO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +12,7 @@ import java.sql.SQLException;
 public class TicketCTest {
 
     private Connection con;
-    private ticketDAO ticketDAO;
+    private airline.ticketDAO ticketDAO;
     private ticketC testTicket;
 
     @BeforeEach

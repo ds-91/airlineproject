@@ -1,3 +1,5 @@
+package airline;
+
 import com.toedter.calendar.JDateChooser;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
