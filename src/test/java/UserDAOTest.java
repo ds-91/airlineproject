@@ -19,7 +19,7 @@ public class UserDAOTest {
     private User user = new User("id", "firstname", "lastname",
             "username", "password");
 
-    public UserDAOTest() throws SQLException {
+    public UserDAOTest() {
     }
 
 
@@ -29,15 +29,4 @@ public class UserDAOTest {
     }
 
 
-
-    @AfterEach
-    public void teardown() throws SQLException {
-        PreparedStatement ps = this.con.prepareStatement("DELETE FROM user " +
-                "where username = ?");
-        ps.setString(1, "username");
-        ps.executeUpdate();
-
-        this.con.close();
-
-    }
 }

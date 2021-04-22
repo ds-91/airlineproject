@@ -19,7 +19,9 @@ public class DatabaseTests {
     byte [] userimage = new byte[]{};
     Customer customer = new Customer("01", "first_name",
             "last_name", "gender", "address",
-            "dob", "contact", userimage, "nic", "passport");
+            "dob", 1234567
+
+            , userimage, "nic", "passport");
     StubDatabase stubDatabase = new StubDatabase();
     stubDatabase.insertCustomer(customer);
 

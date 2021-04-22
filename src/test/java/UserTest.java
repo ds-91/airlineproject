@@ -14,7 +14,7 @@ public class UserTest {
     private User testUser = new User( "id","firstname", "lastname", "username",
             "password");
 
-    public UserTest() throws SQLException {
+    public UserTest() {
     }
 
     @Test

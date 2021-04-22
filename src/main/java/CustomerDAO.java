@@ -51,7 +51,7 @@ public class CustomerDAO {
         // check for null or empty in all strings
         for (String string :
                 customerArray) {
-            if (Strings.isNullOrEmpty(string))
+            if (StringUtils.isNullOrEmpty(string))
                 return false;
              }
 
@@ -69,7 +69,7 @@ public class CustomerDAO {
             pst.setString(6, customer.getAddress());
             pst.setString(7, customer.getDOB());
             pst.setString(8, customer.getGender());
-            pst.setString(9, customer.getContact());
+            pst.setInt(9, customer.getContact());
             pst.setBytes(10, customer.getUserImage());
             success = pst.executeUpdate();
 
@@ -86,14 +86,7 @@ public class CustomerDAO {
             return false;
         }
 
-        String[] customerArray = customer.getCustomerArray();
         // check for null or empty in all strings
-        for (String string :
-                customerArray) {
-            if (Strings.isNullOrEmpty(string))
-                return false;
-        }
-
         int success = 0;
         try {
             PreparedStatement pst =
@@ -106,13 +99,14 @@ public class CustomerDAO {
             pst.setString(6, customer.getAddress());
             pst.setString(7, customer.getDOB());
             pst.setString(8, customer.getGender());
-            pst.setString(9, customer.getContact());
+            pst.setInt(9, customer.getContact());
             pst.setBytes(10, customer.getUserImage());
             pst.setString(1, customer.getID());
 
             success = pst.executeUpdate();
 
             con.close();
+            return success > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,11 +115,6 @@ public class CustomerDAO {
     }
 
     public Customer searchCustomer(String id) {
-
-        if (Strings.isNullOrEmpty(id)) {
-            return null;
-        }
-
         try {
             PreparedStatement pst =
                     con.prepareStatement("select * from customer where id = ?");
@@ -148,7 +137,8 @@ public class CustomerDAO {
                 Blob blob = rs.getBlob("photo");
                 byte[] _imagebytes = blob.getBytes(1, (int) blob.length());
 
-                String contact = rs.getString("contact");
+
+                Integer contact = rs.getInt("contact");
                 con.close();
                 return new Customer(id, fname, lname, gender, address, dob, contact, _imagebytes, nic, passport);
             }

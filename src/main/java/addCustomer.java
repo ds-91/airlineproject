@@ -5,20 +5,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
@@ -101,20 +93,6 @@ public class addCustomer extends javax.swing.JInternalFrame {
     jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
     jLabel5.setForeground(new java.awt.Color(255, 255, 255));
     jLabel5.setText("Address");
-
-    txtlastname.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtlastnameActionPerformed(evt);
-          }
-        });
-
-    txtpassport.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtpassportActionPerformed(evt);
-          }
-        });
 
     txtaddress.setColumns(20);
     txtaddress.setRows(5);
@@ -565,7 +543,7 @@ public class addCustomer extends javax.swing.JInternalFrame {
     String date = da.format(txtdob.getDate());
     customer.setDOB(date);
     customer.setGender(r1.isSelected() ? "Male" : "Female");
-    customer.setContact(txtcontact.getText());
+    customer.setContact(Integer.parseInt(txtcontact.getText()));
 
     boolean success = customerDAO.createCustomer(customer);
 
@@ -608,5 +586,37 @@ public class addCustomer extends javax.swing.JInternalFrame {
   private javax.swing.JTextField txtpassport;
   private javax.swing.JLabel txtphoto;
   private com.toedter.calendar.JDateChooser txtdob;
+
+  public JButton getButtonAddCustomer() {
+    return jButton2;
+  }
+
+  public JTextField getTxtCustFirstname() {
+    return txtfirstname;
+  }
+  public JTextField getTxtCustLastname() {
+    return txtlastname;
+  }
+  public JTextArea getTxtCustAddress() {
+    return txtaddress;
+  }
+  public JTextField getTxtCustContact() {
+    return txtcontact;
+  }
+  public JTextField getTxtCustNic() {
+    return txtnic;
+  }
+
+  public JTextField getTxtCustPassport() {
+    return txtpassport;
+  }
+
+
+  public JDateChooser getTxtdob() {
+    return txtdob;
+  }
+
+
+
   // End of variables declaration//GEN-END:variables
 }

@@ -569,7 +569,7 @@ public class searchCustomer extends javax.swing.JInternalFrame {
     String date = da.format(txtdob.getDate());
     customer.setDOB(date);
     customer.setGender(r1.isSelected() ? "Male" : "Female");
-    customer.setContact(txtcontact.getText());
+    customer.setContact(Integer.parseInt(txtcontact.getText()));
 
     boolean success = customerDAO.updateCustomer(customer);
 
@@ -603,7 +603,7 @@ public class searchCustomer extends javax.swing.JInternalFrame {
       txtnic.setText(search.getNIC().trim());
       txtpassport.setText(search.getPassport().trim());
       txtaddress.setText(search.getAddress().trim());
-      txtcontact.setText(search.getContact().trim());
+      txtcontact.setText(search.getContact().toString().trim());
       // txtdob.setDate(date1); //TODO set date
 
       ImageIcon image = new ImageIcon(search.getUserImage());

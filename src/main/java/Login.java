@@ -7,12 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 public class Login extends javax.swing.JFrame {
 
   /** Creates new form Login */
@@ -60,11 +54,7 @@ public class Login extends javax.swing.JFrame {
     jButton1.setText("Login");
     jButton1.setName("buttonLogin");
     jButton1.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
-          }
-        });
+            this::jButton1ActionPerformed);
 
     jButton2.setText("Cancel");
 
@@ -192,7 +182,7 @@ public class Login extends javax.swing.JFrame {
 
     pack();
     setLocationRelativeTo(null);
-  } // </editor-fold>//GEN-END:initComponents
+  }
 
   private void jButton1ActionPerformed(
       java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton1ActionPerformed
@@ -236,7 +226,7 @@ public class Login extends javax.swing.JFrame {
         Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
-  } // GEN-LAST:event_jButton1ActionPerformed
+  }
 
   /** @param args the command line arguments */
   public static void main(String args[]) {
@@ -266,14 +256,9 @@ public class Login extends javax.swing.JFrame {
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(
-        new Runnable() {
-          public void run() {
-            new Login().setVisible(true);
-          }
-        });
+            () -> new Login().setVisible(true));
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButton1;
   private javax.swing.JButton jButton2;
   private javax.swing.JLabel jLabel1;
@@ -282,5 +267,5 @@ public class Login extends javax.swing.JFrame {
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPasswordField txtpass;
   private javax.swing.JTextField txtuser;
-  // End of variables declaration//GEN-END:variables
+
 }

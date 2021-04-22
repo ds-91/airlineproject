@@ -10,19 +10,17 @@ public class Customer {
     private String gender;
     private String address;
     private String dob;
-    private String contact;
+    private Integer contact;
     private byte[] userimage;
     private String nic;
     private String passport;
 
 
     /** Constructs a Customer instance with related values*/
-    public Customer(){
-    }
     public Customer(String id){
         this.id = id;
     }
-    public Customer(String id, String firstname, String lastname, String gender, String address, String dob, String contact, byte[] userimage, String nic, String passport) {  // 1st (default) constructor
+    public Customer(String id, String firstname, String lastname, String gender, String address, String dob, Integer contact, byte[] userimage, String nic, String passport) {  // 1st (default) constructor
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -37,7 +35,7 @@ public class Customer {
 
     /** Getters */
     public String[] getCustomerArray(){
-        String[] array = {this.id, this.firstname,  this.lastname,this.gender, this.address,this.dob, this.contact,this.nic, this.passport};
+        String[] array = {this.id, this.firstname,  this.lastname,this.gender, this.address,this.dob, this.nic, this.passport};
         return  array;
     }
     public String getID() {
@@ -66,7 +64,7 @@ public class Customer {
         return this.address;
     }
 
-    public String getContact(){
+    public Integer getContact(){
         return this.contact;
     }
     public String getDOB(){
@@ -80,7 +78,6 @@ public class Customer {
     /** Setters */
 
     public void setID(String id) {
-        // validation here ?
        this.id = id;
     }
     public void setNIC(String nic) {
@@ -106,7 +103,7 @@ public class Customer {
         this.address = address;
     }
 
-    public void setContact(String contact){
+    public void setContact(Integer contact){
         this.contact = contact;
     }
     public void setDOB(String dob){
