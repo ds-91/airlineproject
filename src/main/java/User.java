@@ -1,3 +1,8 @@
+/**
+ * Represents the User object, identical to the user type within the Airline database.
+ * Fields match those in the database with the appropriate exception handling. Fields
+ * may not be null or empty strings.
+ */
 public class User {
     private String id;
     private String firstName;

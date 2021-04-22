@@ -7,11 +7,21 @@ public class UserDAO {
     private DatabaseManager databaseManager;
     private Connection con;
 
+    /**
+     * Used to get the connection to the database everytime the
+     * UserDAO object is called.
+     */
     public UserDAO() {
         this.databaseManager = new DatabaseManager();
         this.con  = databaseManager.getDatabaseConnection();
     }
 
+    /**
+     * Inserts a user into the database if all of the text fields within userCreation
+     * contain the correct input.
+     * @param user Takes a User object to insert the appropriate fields into database.
+     * @return True if successfully entered into the database, false otherwise.
+     */
     public boolean insertNewUser(User user) {
         if (user == null) {
             return false;
@@ -40,6 +50,12 @@ public class UserDAO {
         return true;
     }
 
+    /**
+     * Determines the next ID in the database to be displayed in the userCreation window.
+     * If this method does not obtain an ID from the database, it is assumed that the
+     * user being created is the first record and will be represented as such.
+     * @return A String representing the ID in the database to be displayed when creating a user.
+     */
     public String nextIdInDatabase() {
         try {
 

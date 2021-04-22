@@ -156,6 +156,10 @@ public class Main extends javax.swing.JFrame {
     pack();
   }
 
+  /**
+   * Menu item to navigate to the addCustomer window.
+   * @return True if successful.
+   */
   public boolean menuItemAddCustomerActionPerformed() {
     addCustomer cus = new addCustomer();
     pane.add(cus);
@@ -164,6 +168,10 @@ public class Main extends javax.swing.JFrame {
     return cus.isVisible();
   }
 
+  /**
+   * Menu item to navigate to the searchCustomer window.
+   * @return True if successful.
+   */
   public boolean menuItemSearchCustomerActionPerformed() {
     searchCustomer scus = new searchCustomer();
     pane.add(scus);
@@ -172,6 +180,10 @@ public class Main extends javax.swing.JFrame {
     return scus.isVisible();
   }
 
+  /**
+   * Menu item to navigate to the addFlight window.
+   * @return True if successful.
+   */
   public boolean menuItemAddFlightActionPerformed() {
     addflight f = new addflight();
     pane.add(f);
@@ -180,6 +192,10 @@ public class Main extends javax.swing.JFrame {
     return f.isVisible();
   }
 
+  /**
+   * Menu item to navigate to the ticket window.
+   * @return True if successful.
+   */
   public boolean menuItemBookTicketActionPerformed() {
     ticket t = new ticket();
     pane.add(t);
@@ -188,6 +204,10 @@ public class Main extends javax.swing.JFrame {
     return t.isVisible();
   }
 
+  /**
+   * Menu item to navigate to the ticket report window.
+   * @return True if successful.
+   */
   public boolean menuItemTicketReportActionPerformed() {
     ticketreport ti = new ticketreport();
     pane.add(ti);
@@ -196,6 +216,10 @@ public class Main extends javax.swing.JFrame {
     return ti.isVisible();
   }
 
+  /**
+   * Menu item to navigate to the userCreation window.
+   * @return True if successful.
+   */
   public boolean menuItemUserCreationActionPerformed() {
     userCreation u = new userCreation();
     pane.add(u);
@@ -204,6 +228,10 @@ public class Main extends javax.swing.JFrame {
     return u.isVisible();
   }
 
+  /*
+  All of the following methods are getters added to assist in testing of the Main window as
+  well as all of the menu links.
+   */
   public JDesktopPane getPane() {
     return pane;
   }
