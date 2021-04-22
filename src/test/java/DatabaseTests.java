@@ -17,7 +17,7 @@ public class DatabaseTests {
   public void databaseStubTest()
   {
     byte [] userimage = new byte[]{};
-    Customer customer = new Customer("01", "first_name",
+    Customer customer = new Customer(1, "first_name",
             "last_name", "gender", "address",
             "dob", "contact", userimage, "nic", "passport");
     StubDatabase stubDatabase = new StubDatabase();

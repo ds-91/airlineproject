@@ -19,7 +19,7 @@ public class AddFlightTests {
     @BeforeEach
     public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
-        this.testFlight = new Flight("test_id", "test_name",
+        this.testFlight = new Flight( "test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
         this.con = databaseManager.getDatabaseConnection();

@@ -1,8 +1,5 @@
-import com.mysql.cj.util.StringUtils;
 import jdk.internal.joptsimple.internal.Strings;
 
-import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,35 +9,29 @@ import java.util.logging.Logger;
 
 public class CustomerDAO {
 
-    private DatabaseManager databaseManager;
-    private StringUtils utils;
-    private Connection con;
+    private final DatabaseManager databaseManager;
+    private final Connection con;
 
     public CustomerDAO() {
         this.databaseManager = new DatabaseManager();
         this.con = this.databaseManager.getDatabaseConnection();
     }
 
-    public String autoID() {
+    public int nextIntInDatabase() {
+        Connection con = this.databaseManager.getDatabaseConnection();
         try {
-            Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery("select MAX(id) from customer");
+            String sql = "SELECT MAX(id) FROM user";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            rs.getString("MAX(id)");
-            if (rs.getString("MAX(id)") == null) {
-                return "CS001";
-            } else {
-                long id =
-                        Long.parseLong(rs.getString("MAX(id)").substring(2, rs.getString("MAX(id)").length()));
-                id++;
-                return "CS" + String.format("%03d", id);
-            }
+            return rs.getInt("MAX(id)");
 
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return "";
+            Logger.getLogger(userCreation.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
+
 
     public boolean createCustomer(Customer customer) {
         if (customer == null) {
@@ -51,7 +42,15 @@ public class CustomerDAO {
         // check for null or empty in all strings
         for (String string :
                 customerArray) {
-            if (Strings.isNullOrEmpty(string))
+            if (customer.getFirstname() == null || customer.getFirstname().isEmpty() ||
+            customer.getLastname() == null || customer.getLastname().isEmpty() ||
+            customer.getGender() == null || customer.getGender().isEmpty() ||
+            customer.getAddress() == null || customer.getAddress().isEmpty() ||
+            customer.getDOB() == null || customer.getDOB().isEmpty() ||
+            customer.getContact() == null || customer.getContact().isEmpty() ||
+            customer.getUserImage() == null || customer.getNIC() == null ||
+            customer.getNIC().isEmpty() || customer.getPassport() == null ||
+            customer.getPassport().isEmpty())
                 return false;
              }
 
@@ -59,18 +58,17 @@ public class CustomerDAO {
         try {
             PreparedStatement pst =
                     con.prepareStatement(
-                            "insert into customer(id,firstname,lastname,nic,passport,address,dob,gender,contact,photo)values(?,?,?,?,?,?,?,?,?,?)");
+                            "insert into customer(firstname,lastname,nic,passport,address,dob,gender,contact,photo)values(?,?,?,?,?,?,?,?,?,?)");
 
-            pst.setString(1, customer.getID());
-            pst.setString(2, customer.getFirstname());
-            pst.setString(3, customer.getLastname());
-            pst.setString(4, customer.getNIC());
-            pst.setString(5, customer.getPassport());
-            pst.setString(6, customer.getAddress());
-            pst.setString(7, customer.getDOB());
-            pst.setString(8, customer.getGender());
-            pst.setString(9, customer.getContact());
-            pst.setBytes(10, customer.getUserImage());
+            pst.setString(1, customer.getFirstname());
+            pst.setString(2, customer.getLastname());
+            pst.setString(3, customer.getNIC());
+            pst.setString(4, customer.getPassport());
+            pst.setString(5, customer.getAddress());
+            pst.setString(6, customer.getDOB());
+            pst.setString(7, customer.getGender());
+            pst.setString(8, customer.getContact());
+            pst.setBytes(9, customer.getUserImage());
             success = pst.executeUpdate();
 
             con.close();
@@ -108,7 +106,7 @@ public class CustomerDAO {
             pst.setString(8, customer.getGender());
             pst.setString(9, customer.getContact());
             pst.setBytes(10, customer.getUserImage());
-            pst.setString(1, customer.getID());
+            pst.setInt(1, customer.getID());
 
             success = pst.executeUpdate();
 
@@ -120,16 +118,16 @@ public class CustomerDAO {
         return success > 0;
     }
 
-    public Customer searchCustomer(String id) {
+    public Customer searchCustomer(int id) {
 
-        if (Strings.isNullOrEmpty(id)) {
+        if (String.valueOf(id).isEmpty()) {
             return null;
         }
 
         try {
             PreparedStatement pst =
                     con.prepareStatement("select * from customer where id = ?");
-            pst.setString(1, id);
+            pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next() == false) {
@@ -157,5 +155,4 @@ public class CustomerDAO {
         }
         return null;
     }
-
 }

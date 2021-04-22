@@ -15,7 +15,7 @@ public class TicketCTest {
     @BeforeEach
     public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
-        this.testTicket = new ticketC("test_id", "test_flightid",
+        this.testTicket = new ticketC( "test_flightid",
                 "test_custid", "test_classes", "test_price",
                 "test_seats", "test_date");
         this.con = databaseManager.getDatabaseConnection();
@@ -52,7 +52,6 @@ public class TicketCTest {
 
     @Test
     public void validGetTicketInformation() {
-        Assertions.assertEquals("test_id", testTicket.getId());
         Assertions.assertEquals("test_flightid", testTicket.getFlightid());
         Assertions.assertEquals("test_custid", testTicket.getCustid());
         Assertions.assertEquals("test_classes", testTicket.getClasses());
@@ -64,7 +63,6 @@ public class TicketCTest {
 
     @Test
     public void validSetTicketInformation() {
-        testTicket.setId("edited_id");
         testTicket.setFlightid("edited_flightid");
         testTicket.setCustid("edited_custid");
         testTicket.setClasses("edited_classes");
@@ -72,7 +70,6 @@ public class TicketCTest {
         testTicket.setSeats("edited_seats");
         testTicket.setDate("edited_date");
 
-        Assertions.assertEquals("edited_id", testTicket.getId());
         Assertions.assertEquals("edited_flightid", testTicket.getFlightid());
         Assertions.assertEquals("edited_custid", testTicket.getCustid());
         Assertions.assertEquals("edited_classes", testTicket.getClasses());
@@ -84,9 +81,8 @@ public class TicketCTest {
 
     @AfterEach
     public void teardown() throws SQLException {
-        PreparedStatement ps = this.con.prepareStatement("DELETE FROM ticket"
-                + " WHERE id = ?");
-        ps.setString(1, "test_id");
+        PreparedStatement ps = this.con.prepareStatement("DELETE FROM airline.ticket"
+                + " WHERE price = \"test_price\";");
         ps.executeUpdate();
 
         this.con.close();

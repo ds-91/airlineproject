@@ -1,6 +1,9 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ticketDAO {
 
@@ -15,9 +18,7 @@ public class ticketDAO {
             return false;
         }
 
-        if (ticket.getId() == null || ticket.getId().isEmpty() ||
-                ticket.getId() == null || ticket.getId().isEmpty() ||
-                ticket.getFlightid() == null || ticket.getFlightid().isEmpty() ||
+        if (ticket.getFlightid() == null || ticket.getFlightid().isEmpty() ||
                 ticket.getCustid() == null || ticket.getCustid().isEmpty() ||
                 ticket.getClasses() == null || ticket.getClasses().isEmpty() ||
                 ticket.getPrice() == null || ticket.getPrice().isEmpty() ||
@@ -31,15 +32,14 @@ public class ticketDAO {
         int success = 0;
         try {
             PreparedStatement pst = con.prepareStatement("INSERT INTO " +
-                "ticket(id,flightid, custid, classes, " +
-                    "price, seats, date) VALUES (?,?,?,?,?,?,?)");
-            pst.setString(1, ticket.getId());
-            pst.setString(2, ticket.getFlightid());
-            pst.setString(3, ticket.getCustid());
-            pst.setString(4, ticket.getClasses());
-            pst.setString(5, ticket.getPrice());
-            pst.setString(6, ticket.getSeats());
-            pst.setString(7, ticket.getDate());
+                "ticket(flightid, custid, classes, " +
+                    "price, seats, date) VALUES (?,?,?,?,?,?)");
+            pst.setString(1, ticket.getFlightid());
+            pst.setString(2, ticket.getCustid());
+            pst.setString(3, ticket.getClasses());
+            pst.setString(4, ticket.getPrice());
+            pst.setString(5, ticket.getSeats());
+            pst.setString(6, ticket.getDate());
 
             success = pst.executeUpdate();
 
@@ -48,5 +48,20 @@ public class ticketDAO {
             e.printStackTrace();
         }
         return success > 0;
+    }
+
+    public int nextIdInDatabase() {
+        Connection con = this.databaseManager.getDatabaseConnection();
+        try {
+            String sql = "SELECT MAX(id) FROM user";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("MAX(id)") + 1;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(userCreation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 }

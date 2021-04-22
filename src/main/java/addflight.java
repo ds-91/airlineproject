@@ -20,14 +20,6 @@ public class addflight extends javax.swing.JInternalFrame {
   private javax.swing.JButton buttonAddFlight;
   private javax.swing.JButton buttonCancel;
   private javax.swing.JLabel labelFlightId;
-  private javax.swing.JLabel labelFlightName;
-  private javax.swing.JLabel labelFlightSource;
-  private javax.swing.JLabel labelFlightDeparture;
-  private javax.swing.JLabel labelFlightDate;
-  private javax.swing.JLabel labelFlightDepartureTime;
-  private javax.swing.JLabel labelFlightArrivalTime;
-  private javax.swing.JLabel labelFlightCharge;
-  private javax.swing.JPanel jPanel1;
   private javax.swing.JTextField txtarrtime;
   private com.toedter.calendar.JDateChooser txtdate;
   private javax.swing.JComboBox<String> txtdepart;
@@ -41,13 +33,9 @@ public class addflight extends javax.swing.JInternalFrame {
   /** Creates new form addflight */
   public addflight() {
     initComponents();
-    autoID();
-
-
   }
 
   Connection con;
-  PreparedStatement pst;
   FlightDAO flightDAO;
 
   /**
@@ -57,25 +45,25 @@ public class addflight extends javax.swing.JInternalFrame {
   private void initComponents() {
     flightDAO = new FlightDAO();
 
-    jPanel1 = new javax.swing.JPanel();
+    javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
     labelFlightId = new javax.swing.JLabel();
     txtflightid = new javax.swing.JLabel();
     txtflightid.setName("txtflightid");
-    labelFlightName = new javax.swing.JLabel();
-    labelFlightSource = new javax.swing.JLabel();
-    labelFlightDeparture = new javax.swing.JLabel();
+    JLabel labelFlightName = new JLabel();
+    JLabel labelFlightSource = new JLabel();
+    JLabel labelFlightDeparture = new JLabel();
     txtflightname = new javax.swing.JTextField();
     txtflightname.setName("txtflightname");
-    labelFlightDate = new javax.swing.JLabel();
+    JLabel labelFlightDate = new JLabel();
     txtdate = new com.toedter.calendar.JDateChooser();
     txtdate.setName("txtdate");
-    labelFlightDepartureTime = new javax.swing.JLabel();
+    JLabel labelFlightDepartureTime = new JLabel();
     txtdtime = new javax.swing.JTextField();
     txtdtime.setName("txtdtime");
     txtarrtime = new javax.swing.JTextField();
     txtarrtime.setName("txtarrtime");
-    labelFlightArrivalTime = new javax.swing.JLabel();
-    labelFlightCharge = new javax.swing.JLabel();
+    JLabel labelFlightArrivalTime = new JLabel();
+    JLabel labelFlightCharge = new JLabel();
     txtflightcharge = new javax.swing.JTextField();
     txtflightcharge.setName("txtflightcharge");
     buttonAddFlight = new javax.swing.JButton();
@@ -96,7 +84,7 @@ public class addflight extends javax.swing.JInternalFrame {
 
     txtflightid.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
     txtflightid.setForeground(new java.awt.Color(255, 255, 0));
-    txtflightid.setText("jLabel2");
+    txtflightid.setText(String.valueOf(flightDAO.nextIdInDatabase()));
 
     labelFlightName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
     labelFlightName.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,7 +113,6 @@ public class addflight extends javax.swing.JInternalFrame {
     buttonAddFlight.setText("Add");
     buttonAddFlight.addActionListener(
         evt -> {
-          String id = txtflightid.getText();
           String flightname = txtflightname.getText();
           String source = txtsource.getSelectedItem().toString().trim();
           String depart = txtdepart.getSelectedItem().toString().trim();
@@ -136,7 +123,7 @@ public class addflight extends javax.swing.JInternalFrame {
           String flightcharge = txtflightcharge.getText();
 
           Flight flight =
-              new Flight(id, flightname, source, depart, date, departtime, arrtime, flightcharge);
+              new Flight(flightname, source, depart, date, departtime, arrtime, flightcharge);
 
           boolean success = flightDAO.createFlight(flight);
 
@@ -152,12 +139,7 @@ public class addflight extends javax.swing.JInternalFrame {
         });
 
     buttonCancel.setText("Cancel");
-    buttonCancel.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            buttonCancelActionPerformed(evt);
-          }
-        });
+    buttonCancel.addActionListener(this::buttonCancelActionPerformed);
 
     txtsource.setModel(
         new javax.swing.DefaultComboBoxModel<>(
@@ -395,7 +377,7 @@ public class addflight extends javax.swing.JInternalFrame {
                     .createSequentialGroup()
                     .addGap(34, 34, 34)
                     .addComponent(
-                        jPanel1,
+                            jPanel1,
                         javax.swing.GroupLayout.PREFERRED_SIZE,
                         javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,37 +391,13 @@ public class addflight extends javax.swing.JInternalFrame {
                     .createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(
-                        jPanel1,
+                            jPanel1,
                         javax.swing.GroupLayout.PREFERRED_SIZE,
                         javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(39, 39, 39)));
 
     pack();
-  } // </editor-fold>//GEN-END:initComponents
-
-  public void autoID() {
-    try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      con = DriverManager.getConnection("jdbc:mysql://localhost/airline", "root", "password");
-      Statement s = con.createStatement();
-      ResultSet rs = s.executeQuery("select MAX(id) from flight");
-      rs.next();
-      rs.getString("MAX(id)");
-      if (rs.getString("MAX(id)") == null) {
-        txtflightid.setText("FO001");
-      } else {
-        long id =
-            Long.parseLong(rs.getString("MAX(id)").substring(2, rs.getString("MAX(id)").length()));
-        id++;
-        txtflightid.setText("FO" + String.format("%03d", id));
-      }
-
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-      Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    }
   }
 
   public JButton getButtonAddFlight() {

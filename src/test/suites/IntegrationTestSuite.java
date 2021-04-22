@@ -21,7 +21,7 @@ public class IntegrationTestSuite {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        flight = new Flight("test_id", "test_name",
+        flight = new Flight( "test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
     }
@@ -54,7 +54,7 @@ public class IntegrationTestSuite {
     public void databaseStubTest()
     {
         byte [] userimage = new byte[]{};
-        Customer customer = new Customer("01", "first_name",
+        Customer customer = new Customer(1, "first_name",
             "last_name", "gender", "address",
             "dob", "contact", userimage, "nic", "passport");
         StubDatabase stubDatabase = new StubDatabase();

@@ -4,7 +4,7 @@ import java.awt.*;
  * The Customer class models an airline customer.
  */
 public class Customer {
-    private String id;
+    private int id;
     private String firstname;
     private String lastname;
     private String gender;
@@ -19,10 +19,10 @@ public class Customer {
     /** Constructs a Customer instance with related values*/
     public Customer(){
     }
-    public Customer(String id){
+    public Customer(int id){
         this.id = id;
     }
-    public Customer(String id, String firstname, String lastname, String gender, String address, String dob, String contact, byte[] userimage, String nic, String passport) {  // 1st (default) constructor
+    public Customer(int id, String firstname, String lastname, String gender, String address, String dob, String contact, byte[] userimage, String nic, String passport) {  // 1st (default) constructor
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -37,10 +37,10 @@ public class Customer {
 
     /** Getters */
     public String[] getCustomerArray(){
-        String[] array = {this.id, this.firstname,  this.lastname,this.gender, this.address,this.dob, this.contact,this.nic, this.passport};
+        String[] array = {String.valueOf(this.id), this.firstname,  this.lastname,this.gender, this.address,this.dob, this.contact,this.nic, this.passport};
         return  array;
     }
-    public String getID() {
+    public int getID() {
         return this.id;
     }
     public String getNIC() {
@@ -79,7 +79,7 @@ public class Customer {
 
     /** Setters */
 
-    public void setID(String id) {
+    public void setID(int id) {
         // validation here ?
        this.id = id;
     }

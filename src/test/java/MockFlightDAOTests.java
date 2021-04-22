@@ -20,15 +20,13 @@ public class MockFlightDAOTests {
     private addflight addFlight;
 
     private Flight flight;
-    private Robot robot;
 
     @BeforeEach
     public void setup() throws AWTException {
         MockitoAnnotations.initMocks(this);
-        flight = new Flight("test_id", "test_name",
+        flight = new Flight( "test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
-        robot = new Robot();
     }
 
     @Test
@@ -45,8 +43,6 @@ public class MockFlightDAOTests {
 
         Mockito.when(mockDAO.createFlight(Mockito.any(Flight.class))).thenReturn(true);
         buttonAddFlight.doClick();
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
         Mockito.verify(mockDAO).createFlight(Mockito.any(Flight.class));
     }
 

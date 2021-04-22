@@ -11,7 +11,7 @@ public class CustomerTests {
     private Connection con;
     private CustomerDAO customerDAO;
     private Customer testCustomer;
-    private String customerID;
+    private int customerID;
 
     @BeforeEach
     public void setup() {
@@ -19,7 +19,7 @@ public class CustomerTests {
         byte [] userimage = new byte[]{};
         this.con = databaseManager.getDatabaseConnection();
         this.customerDAO = new CustomerDAO();
-        this.customerID = customerDAO.autoID();
+        this.customerID = customerDAO.nextIntInDatabase();
         this.testCustomer = new Customer(customerID, "first_name",
                 "last_name", "gender", "address",
                 "dob", "contact", userimage, "nic", "passport");
@@ -75,7 +75,7 @@ public class CustomerTests {
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM customer"
                 + " WHERE id = ?");
-        ps.setString(1, customerID);
+        ps.setInt(1, customerID);
         ps.executeUpdate();
 
         this.con.close();

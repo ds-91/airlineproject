@@ -5,12 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -21,11 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 public class addCustomer extends javax.swing.JInternalFrame {
 
@@ -39,9 +29,9 @@ public class addCustomer extends javax.swing.JInternalFrame {
   public addCustomer() {
     initComponents();
     this.customerDAO = new CustomerDAO();
-    String ID = customerDAO.autoID();
+    int ID = customerDAO.nextIntInDatabase();
     this.customer = new Customer(ID);
-    txtid.setText(ID);
+    txtid.setText(String.valueOf(ID));
   }
   /**
    * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -49,7 +39,7 @@ public class addCustomer extends javax.swing.JInternalFrame {
    */
   @SuppressWarnings("unchecked")
 
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -103,18 +93,10 @@ public class addCustomer extends javax.swing.JInternalFrame {
     jLabel5.setText("Address");
 
     txtlastname.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtlastnameActionPerformed(evt);
-          }
-        });
+            this::txtlastnameActionPerformed);
 
     txtpassport.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtpassportActionPerformed(evt);
-          }
-        });
+            this::txtpassportActionPerformed);
 
     txtaddress.setColumns(20);
     txtaddress.setRows(5);
@@ -330,27 +312,15 @@ public class addCustomer extends javax.swing.JInternalFrame {
 
     jButton1.setText("Browse");
     jButton1.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
-          }
-        });
+            this::jButton1ActionPerformed);
 
     jButton2.setText("Add");
     jButton2.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton2ActionPerformed(evt);
-          }
-        });
+            this::jButton2ActionPerformed);
 
     jButton3.setText("Cancel");
     jButton3.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
-          }
-        });
+            this::jButton3ActionPerformed);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -505,20 +475,20 @@ public class addCustomer extends javax.swing.JInternalFrame {
                     .addGap(49, 49, 49)));
 
     pack();
-  } // </editor-fold>//GEN-END:initComponents
+  }
 
   private void txtlastnameActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_txtlastnameActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-  } // GEN-LAST:event_txtlastnameActionPerformed
+  }
 
   private void txtpassportActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_txtpassportActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-  } // GEN-LAST:event_txtpassportActionPerformed
+  }
 
   private void jButton1ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton1ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 
     try {
@@ -548,12 +518,12 @@ public class addCustomer extends javax.swing.JInternalFrame {
     } catch (IOException ex) {
       Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
     }
-  } // GEN-LAST:event_jButton1ActionPerformed
+  }
 
   // create customer
 
   private void jButton2ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton2ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 
     customer.setFirstname(txtfirstname.getText());
@@ -572,16 +542,16 @@ public class addCustomer extends javax.swing.JInternalFrame {
     if(success)
       JOptionPane.showMessageDialog(null, "Registation Created");
 
-  } // GEN-LAST:event_jButton2ActionPerformed
+  }
 
   private void jButton3ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton3ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 
     this.hide();
-  } // GEN-LAST:event_jButton3ActionPerformed
+  }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
+
   private javax.swing.JButton jButton1;
   private javax.swing.JButton jButton2;
   private javax.swing.JButton jButton3;
@@ -608,5 +578,5 @@ public class addCustomer extends javax.swing.JInternalFrame {
   private javax.swing.JTextField txtpassport;
   private javax.swing.JLabel txtphoto;
   private com.toedter.calendar.JDateChooser txtdob;
-  // End of variables declaration//GEN-END:variables
+
 }

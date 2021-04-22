@@ -1,38 +1,49 @@
+import javax.swing.*;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class userCreation extends javax.swing.JInternalFrame {
 
-  private javax.swing.JButton buttonAddUser;
-  private javax.swing.JButton buttonCancel;
-  private javax.swing.JLabel labelUserId;
-  private javax.swing.JLabel labelUserFirstName;
-  private javax.swing.JLabel labelUserLastName;
-  private javax.swing.JLabel labelUsername;
-  private javax.swing.JLabel labelPassword;
-  private javax.swing.JPanel jPanel1;
   private javax.swing.JTextField txtfirstname;
   private javax.swing.JTextField txtlastname;
   private javax.swing.JPasswordField txtpassword;
-  private javax.swing.JLabel txtuserid;
   private javax.swing.JTextField txtusername;
-  private javax.swing.JLabel status;
+  JButton buttonAddUser = new JButton();
+  private final JOptionPane successPane = new JOptionPane();
+
+  UserDAO userDAO = new UserDAO();
+  User user;
+  String id;
+  String firstName;
+
+  public JTextField getTxtfirstname() {
+    return txtfirstname;
+  }
+
+  public JTextField getTxtlastname() {
+    return txtlastname;
+  }
+
+  public JPasswordField getTxtpassword() {
+    return txtpassword;
+  }
+
+  public JTextField getTxtusername() {
+    return txtusername;
+  }
+
+  public JButton getButtonAddUser() {return buttonAddUser;}
+
+  String lastName;
+  String username;
+  String password;
 
   /** Creates new form userCreation **/
   public userCreation() {
     initComponents();
-    autoID();
+//    autoID();
   }
 
   Connection con;
-  PreparedStatement pst;
 
   /**
    * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -41,14 +52,14 @@ public class userCreation extends javax.swing.JInternalFrame {
   @SuppressWarnings("unchecked")
   private void initComponents() {
 
-    jPanel1 = new javax.swing.JPanel();
+    JPanel jPanel1 = new JPanel();
     jPanel1.setName("userCreationPanel");
-    labelUserId = new javax.swing.JLabel();
-    labelUserFirstName = new javax.swing.JLabel();
-    labelUserLastName = new javax.swing.JLabel();
-    labelUsername = new javax.swing.JLabel();
-    labelPassword = new javax.swing.JLabel();
-    txtuserid = new javax.swing.JLabel();
+    JLabel labelUserId = new JLabel();
+    JLabel labelUserFirstName = new JLabel();
+    JLabel labelUserLastName = new JLabel();
+    JLabel labelUsername = new JLabel();
+    JLabel labelPassword = new JLabel();
+    JLabel txtuserid = new JLabel();
     txtuserid.setName("textUserId");
     txtfirstname = new javax.swing.JTextField();
     txtfirstname.setName("textFirstName");
@@ -56,13 +67,13 @@ public class userCreation extends javax.swing.JInternalFrame {
     txtlastname.setName("textLastName");
     txtusername = new javax.swing.JTextField();
     txtusername.setName("textUserName");
-    buttonAddUser = new javax.swing.JButton();
+
     buttonAddUser.setName("buttonAdd");
-    buttonCancel = new javax.swing.JButton();
+    JButton buttonCancel = new JButton();
     buttonCancel.setName("buttonCancel");
     txtpassword = new javax.swing.JPasswordField();
     txtpassword.setName("textPassword");
-    status = new javax.swing.JLabel();
+    JLabel status = new JLabel();
     status.setName("statustext");
 
     jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("User Creation"));
@@ -70,37 +81,48 @@ public class userCreation extends javax.swing.JInternalFrame {
     labelUserId.setFont(new java.awt.Font("Tahoma", 1, 12));
     labelUserId.setText("User ID");
 
-    labelUserFirstName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+    labelUserFirstName.setFont(new java.awt.Font("Tahoma", 1, 12));
     labelUserFirstName.setText("FirstName");
 
-    labelUserLastName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+    labelUserLastName.setFont(new java.awt.Font("Tahoma", 1, 12));
     labelUserLastName.setText("LastName");
 
-    labelUsername.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+    labelUsername.setFont(new java.awt.Font("Tahoma", 1, 12));
     labelUsername.setText("User Name");
 
-    labelPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+    labelPassword.setFont(new java.awt.Font("Tahoma", 1, 12));
     labelPassword.setText("Password");
 
-    txtuserid.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+    txtuserid.setFont(new java.awt.Font("Tahoma", 1, 18));
     txtuserid.setForeground(new java.awt.Color(255, 0, 0));
-    txtuserid.setText("jLabel6");
+    txtuserid.setText(String.valueOf(userDAO.nextIdInDatabase()));
 
     buttonAddUser.setText("Add");
     buttonAddUser.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            insertUserIntoDatabase(evt);
-          }
-        });
+            evt -> {
+              firstName = txtfirstname.getText();
+              lastName = txtlastname.getText();
+              username = txtusername.getText();
+              password = txtpassword.getText();
+
+              user = new User(firstName, lastName, username, password);
+
+              boolean success = userDAO.insertNewUser(user);
+
+              if(success) {
+                successPane.setMessage("User created!");
+                JDialog dialog = successPane.createDialog(null, "Status");
+                dialog.setVisible(true);
+              }
+              else {
+                successPane.setMessage("Error creating user!");
+                JDialog dialog = successPane.createDialog(null, "Status");
+                dialog.setVisible(true);
+              }
+            });
 
     buttonCancel.setText("Cancel");
-    buttonCancel.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            buttonCancelAction(evt);
-          }
-        });
+    buttonCancel.addActionListener(this::buttonCancelAction);
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
@@ -139,7 +161,7 @@ public class userCreation extends javax.swing.JInternalFrame {
                     .createSequentialGroup()
                     .addContainerGap(208, Short.MAX_VALUE)
                     .addComponent(
-                        status,
+                            status,
                         javax.swing.GroupLayout.PREFERRED_SIZE,
                         109,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,7 +250,7 @@ public class userCreation extends javax.swing.JInternalFrame {
                         jPanel1Layout
                             .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(
-                                status,
+                                    status,
                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                 48,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,7 +276,7 @@ public class userCreation extends javax.swing.JInternalFrame {
                     .createSequentialGroup()
                     .addGap(27, 27, 27)
                     .addComponent(
-                        jPanel1,
+                            jPanel1,
                         javax.swing.GroupLayout.PREFERRED_SIZE,
                         javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,80 +289,18 @@ public class userCreation extends javax.swing.JInternalFrame {
                     .createSequentialGroup()
                     .addGap(23, 23, 23)
                     .addComponent(
-                        jPanel1,
+                            jPanel1,
                         javax.swing.GroupLayout.PREFERRED_SIZE,
                         javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE)));
 
     pack();
-  } // </editor-fold>//GEN-END:initComponents
-
-  private void insertUserIntoDatabase(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton1ActionPerformed
-    // TODO add your handling code here:
-
-    String id = txtuserid.getText();
-    String firstname = txtfirstname.getText();
-    String lastname = txtlastname.getText();
-    String username = txtusername.getText();
-    String password = txtpassword.getText();
-
-    if (username.length() >= 8 && username.length() <= 20) {
-      status.setText("pass");
-      try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/airline", "root", "password");
-        pst =
-            con.prepareStatement(
-                "insert into user(id,firstname,lastname,username,password)values(?,?,?,?,?)");
-
-        pst.setString(1, id);
-        pst.setString(2, firstname);
-        pst.setString(3, lastname);
-        pst.setString(4, username);
-        pst.setString(5, password);
-
-        pst.executeUpdate();
-
-        JOptionPane.showMessageDialog(null, "User Createdd.........");
-      } catch (ClassNotFoundException ex) {
-        Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (SQLException ex) {
-        Logger.getLogger(addflight.class.getName()).log(Level.SEVERE, null, ex);
-      }
-    } else {
-      status.setText("fail");
-    }
-  } // GEN-LAST:event_jButton1ActionPerformed
+  }
 
   private void buttonCancelAction(
       java.awt.event.ActionEvent evt) {
     this.hide();
-  }
-
-  public void autoID() {
-    try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      con = DriverManager.getConnection("jdbc:mysql://localhost/airline", "root", "password");
-      Statement s = con.createStatement();
-      ResultSet rs = s.executeQuery("select MAX(id) from user");
-      rs.next();
-      rs.getString("MAX(id)");
-      if (rs.getString("MAX(id)") == null) {
-        txtuserid.setText("UO001");
-      } else {
-        long id =
-            Long.parseLong(rs.getString("MAX(id)").substring(2, rs.getString("MAX(id)").length()));
-        id++;
-        txtuserid.setText("UO" + String.format("%03d", id));
-      }
-
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-      Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
-    }
   }
 
 }

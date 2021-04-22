@@ -1,6 +1,5 @@
 public class ticketC {
 
-    private String id;
     private String flightid;
     private String custid;
     private String classes;
@@ -8,22 +7,13 @@ public class ticketC {
     private String seats;
     private String date;
 
-    ticketC (String id, String flightid, String custid, String classes, String price, String seats, String date ) {
-        this.id = id;
+    ticketC (String flightid, String custid, String classes, String price, String seats, String date ) {
         this.flightid = flightid;
         this.custid = custid;
         this.classes = classes;
         this.price = price;
         this.seats = seats;
         this.date = date;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFlightid() {

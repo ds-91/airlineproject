@@ -15,12 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 public class searchCustomer extends javax.swing.JInternalFrame {
 
   /** Creates new form addCustomer */
@@ -96,18 +90,10 @@ public class searchCustomer extends javax.swing.JInternalFrame {
     jLabel5.setText("Address");
 
     txtlastname.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtlastnameActionPerformed(evt);
-          }
-        });
+            this::txtlastnameActionPerformed);
 
     txtpassport.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtpassportActionPerformed(evt);
-          }
-        });
+            this::txtpassportActionPerformed);
 
     txtaddress.setColumns(20);
     txtaddress.setRows(5);
@@ -319,35 +305,19 @@ public class searchCustomer extends javax.swing.JInternalFrame {
 
     jButton1.setText("Browse");
     jButton1.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
-          }
-        });
+            this::jButton1ActionPerformed);
 
     jButton2.setText("Update");
     jButton2.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton2ActionPerformed(evt);
-          }
-        });
+            this::jButton2ActionPerformed);
 
     jButton3.setText("Cancel");
     jButton3.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
-          }
-        });
+            this::jButton3ActionPerformed);
 
     jButton4.setText("Find");
     jButton4.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton4ActionPerformed(evt);
-          }
-        });
+            this::jButton4ActionPerformed);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -512,20 +482,20 @@ public class searchCustomer extends javax.swing.JInternalFrame {
                     .addGap(49, 49, 49)));
 
     pack();
-  } // </editor-fold>//GEN-END:initComponents
+  }
 
   private void txtlastnameActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_txtlastnameActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-  } // GEN-LAST:event_txtlastnameActionPerformed
+  }
 
   private void txtpassportActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_txtpassportActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
-  } // GEN-LAST:event_txtpassportActionPerformed
+  }
 
   private void jButton1ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton1ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 
     try {
@@ -554,10 +524,10 @@ public class searchCustomer extends javax.swing.JInternalFrame {
     } catch (IOException ex) {
       Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
     }
-  } // GEN-LAST:event_jButton1ActionPerformed
+  }
 
   private void jButton2ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton2ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     if(!Strings.isNullOrEmpty(txtcustid.getText())) {
     customer.setFirstname(txtfirstname.getText());
@@ -577,20 +547,20 @@ public class searchCustomer extends javax.swing.JInternalFrame {
       JOptionPane.showMessageDialog(null, "Registation Created");
 
     }
-  } // GEN-LAST:event_jButton2ActionPerformed
+  }
 
   private void jButton3ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton3ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 
     this.hide();
   } // GEN-LAST:event_jButton3ActionPerformed
 
   private void jButton4ActionPerformed(
-      java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton4ActionPerformed
+      java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
 
-    String id = txtcustid.getText();
+    int id = Integer.parseInt(txtcustid.getText());
 
     Customer search;
     search = customerDAO.searchCustomer(id);
@@ -622,9 +592,9 @@ public class searchCustomer extends javax.swing.JInternalFrame {
         r2.setSelected(false);
       }
     }
-  } // GEN-LAST:event_jButton4ActionPerformed
+  }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
+
   private javax.swing.JButton jButton1;
   private javax.swing.JButton jButton2;
   private javax.swing.JButton jButton3;
@@ -652,5 +622,5 @@ public class searchCustomer extends javax.swing.JInternalFrame {
   private javax.swing.JTextField txtpassport;
   private javax.swing.JLabel txtphoto;
   private JDateChooser txtdob;
-  // End of variables declaration//GEN-END:variables
+
 }

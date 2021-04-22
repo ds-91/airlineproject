@@ -15,7 +15,7 @@ public class FlightTests {
     @BeforeEach
     public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
-        this.testFlight = new Flight("test_id", "test_name",
+        this.testFlight = new Flight( "test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
         this.con = databaseManager.getDatabaseConnection();
@@ -52,7 +52,6 @@ public class FlightTests {
 
     @Test
     public void validGetFlightInformation() {
-        Assertions.assertEquals("test_id", testFlight.getId());
         Assertions.assertEquals("test_name", testFlight.getFlightname());
         Assertions.assertEquals("test_source", testFlight.getSource());
         Assertions.assertEquals("test_depart", testFlight.getDepart());
@@ -64,7 +63,6 @@ public class FlightTests {
 
     @Test
     public void validSetFlightInformation() {
-        testFlight.setId("edited_id");
         testFlight.setFlightname("edited_name");
         testFlight.setSource("edited_source");
         testFlight.setDepart("edited_depart");
@@ -73,7 +71,6 @@ public class FlightTests {
         testFlight.setArrtime("edited_arrtime");
         testFlight.setFlightcharge("edited_flightcharge");
 
-        Assertions.assertEquals("edited_id", testFlight.getId());
         Assertions.assertEquals("edited_name", testFlight.getFlightname());
         Assertions.assertEquals("edited_source", testFlight.getSource());
         Assertions.assertEquals("edited_depart", testFlight.getDepart());
@@ -92,8 +89,8 @@ public class FlightTests {
     @AfterEach
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM flight"
-            + " WHERE id = ?");
-        ps.setString(1, "test_id");
+            + " WHERE flightname = ?");
+        ps.setString(1, "test_name");
         ps.executeUpdate();
 
         this.con.close();

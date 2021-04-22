@@ -13,7 +13,7 @@ public class UnitTestSuite {
     private FlightDAO flightDAO;
     private CustomerDAO customerDAO;
     private Customer testCustomer;
-    private String customerID;
+    private int customerID;
     private Connection con;
     private DatabaseManager databaseManager;
     private Flight testFlight;
@@ -28,14 +28,14 @@ public class UnitTestSuite {
         this.con = databaseManager.getDatabaseConnection();
         this.customerDAO = new CustomerDAO();
         byte [] userimage = new byte[]{};
-        this.customerID = customerDAO.autoID();
-        this.testFlight = new Flight("10", "test_name",
+        this.customerID = customerDAO.nextIntInDatabase();
+        this.testFlight = new Flight("test_name",
             "test_source", "test_depart", "test_date",
             "test_deptime", "test_arrtime", "test_flightcharge");
         this.testCustomer = new Customer(customerID, "first_name",
             "last_name", "gender", "address",
             "dob", "contact", userimage, "nic", "passport");
-        this.testTicket = new ticketC("10", "test_flightid",
+        this.testTicket = new ticketC("test_flightid",
             "test_custid", "test_classes", "test_price",
             "test_seats", "test_date");
         this.con = databaseManager.getDatabaseConnection();
@@ -188,7 +188,6 @@ public class UnitTestSuite {
 
     @Test
     public void validGetFlightInformation() {
-        Assertions.assertEquals("test_id", testFlight.getId());
         Assertions.assertEquals("test_name", testFlight.getFlightname());
         Assertions.assertEquals("test_source", testFlight.getSource());
         Assertions.assertEquals("test_depart", testFlight.getDepart());
@@ -200,7 +199,6 @@ public class UnitTestSuite {
 
     @Test
     public void validSetFlightInformation() {
-        testFlight.setId("edited_id");
         testFlight.setFlightname("edited_name");
         testFlight.setSource("edited_source");
         testFlight.setDepart("edited_depart");
@@ -209,7 +207,6 @@ public class UnitTestSuite {
         testFlight.setArrtime("edited_arrtime");
         testFlight.setFlightcharge("edited_flightcharge");
 
-        Assertions.assertEquals("edited_id", testFlight.getId());
         Assertions.assertEquals("edited_name", testFlight.getFlightname());
         Assertions.assertEquals("edited_source", testFlight.getSource());
         Assertions.assertEquals("edited_depart", testFlight.getDepart());
@@ -249,7 +246,7 @@ public class UnitTestSuite {
 
     @Test
     public void validGetTicketInformation() {
-        Assertions.assertEquals("test_id", testTicket.getId());
+
         Assertions.assertEquals("test_flightid", testTicket.getFlightid());
         Assertions.assertEquals("test_custid", testTicket.getCustid());
         Assertions.assertEquals("test_classes", testTicket.getClasses());
@@ -261,7 +258,7 @@ public class UnitTestSuite {
 
     @Test
     public void validSetTicketInformation() {
-        testTicket.setId("edited_id");
+
         testTicket.setFlightid("edited_flightid");
         testTicket.setCustid("edited_custid");
         testTicket.setClasses("edited_classes");
@@ -269,7 +266,7 @@ public class UnitTestSuite {
         testTicket.setSeats("edited_seats");
         testTicket.setDate("edited_date");
 
-        Assertions.assertEquals("edited_id", testTicket.getId());
+
         Assertions.assertEquals("edited_flightid", testTicket.getFlightid());
         Assertions.assertEquals("edited_custid", testTicket.getCustid());
         Assertions.assertEquals("edited_classes", testTicket.getClasses());
@@ -281,7 +278,7 @@ public class UnitTestSuite {
 
     @Test
     public void firstNameValid() {
-        User user = new User(1, "firstName", "lastName", "username", "password");
+        User user = new User("firstName", "lastName", "username", "password");
 
         Assertions.assertNotEquals("", user.getFirstName());
         Assertions.assertNotEquals(null, user.getFirstName());
@@ -289,7 +286,7 @@ public class UnitTestSuite {
 
     @Test
     public void lastNameValid() {
-        User user = new User(1, "firstName", "lastName", "username", "password");
+        User user = new User( "firstName", "lastName", "username", "password");
 
         Assertions.assertNotEquals("", user.getLastName());
         Assertions.assertNotEquals(null, user.getLastName());
@@ -297,7 +294,7 @@ public class UnitTestSuite {
 
     @Test
     public void usernameValid() {
-        User user = new User(1, "firstName", "lastName", "username", "password");
+        User user = new User( "firstName", "lastName", "username", "password");
 
         Assertions.assertNotEquals("", user.getUsername());
         Assertions.assertNotEquals(null, user.getUsername());
@@ -305,7 +302,7 @@ public class UnitTestSuite {
 
     @Test
     public void passwordValid() {
-        User user = new User(1, "firstName", "lastName", "username", "password");
+        User user = new User(  "firstName", "lastName", "username", "password");
 
         Assertions.assertNotEquals("", user.getPassword());
         Assertions.assertNotEquals(null, user.getPassword());
@@ -313,7 +310,7 @@ public class UnitTestSuite {
 
     @Test
     public void firstNameValidTwo() {
-        User user = new User(1, "firstName", "lastName", "username", "password");
+        User user = new User( "firstName", "lastName", "username", "password");
 
         Assertions.assertEquals("firstName", user.getFirstName());
     }
@@ -321,14 +318,13 @@ public class UnitTestSuite {
     @AfterEach
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM customer"
-            + " WHERE id = ?");
-        ps.setString(1, customerID);
+            + " WHERE firstname = ?");
+        ps.setString(1, "firstName");
         ps.executeUpdate();
 
         this.con.close();
         this.con = null;
         this.customerDAO = null;
-        this.con = null;
     }
 
 }

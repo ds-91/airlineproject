@@ -1,6 +1,5 @@
 public class Flight {
 
-    private String id;
     private String flightname;
     private String source;
     private String depart;
@@ -9,9 +8,8 @@ public class Flight {
     private String arrtime;
     private String flightcharge;
 
-    public Flight(String id, String flightname, String source, String depart,
+    public Flight(String flightname, String source, String depart,
         String date, String deptime, String arrtime, String flightcharge) {
-        this.id = id;
         this.flightname = flightname;
         this.source = source;
         this.depart = depart;
@@ -19,14 +17,6 @@ public class Flight {
         this.deptime = deptime;
         this.arrtime = arrtime;
         this.flightcharge = flightcharge;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFlightname() {
