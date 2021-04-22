@@ -102,6 +102,8 @@ public class addCustomer extends javax.swing.JInternalFrame {
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout
+
+
             .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(
                 jPanel1Layout

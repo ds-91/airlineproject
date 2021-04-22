@@ -3,6 +3,8 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
-@SelectClasses(MockFlightDAOTests.class)
+@SelectClasses({MockFlightDAOTests.class, MockCustomerDAOTests.class
+
+})
 public class IntegrationTestSuite {
 }
