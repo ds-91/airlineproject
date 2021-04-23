@@ -13,6 +13,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 
+/**
+ * Mock a customer data access object
+ */
 public class MockCustomerDAOTests {
 
     @Mock
@@ -36,8 +39,11 @@ public class MockCustomerDAOTests {
         robot = new Robot();
     }
 
+    /**
+     * Test a successful database call for adding a new customer
+     */
     @Test
-    public void createValidFlightFromGUI() {
+    public void createValidCustomerFromGUI() {
         JButton buttonAddCustomer = addCustomer.getButtonAddCustomer();
 
         addCustomer.getTxtCustFirstname().setText("TEST_CUSTOMER_FIRSTNAME");

@@ -16,6 +16,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test connection speeds for database objects
+ */
 public class PerformanceTests {
 
     private FlightDAO flightDAO;
@@ -31,6 +34,9 @@ public class PerformanceTests {
     private DatabaseManager databaseManager;
     private ticketreport ticketReport;
 
+    /**
+     * Setup DAOs and their respective test objects
+     */
     @BeforeEach
     public void setup() {
         flightDAO = new FlightDAO();
@@ -52,6 +58,9 @@ public class PerformanceTests {
                 "test_dob", 1234567, userimage, "test_nic", "test_passport");
     }
 
+    /**
+     * Test response time for creating a new flight
+     */
     @Test
     public void flightDAOAccessTime() {
         long begin = System.currentTimeMillis();
@@ -62,7 +71,9 @@ public class PerformanceTests {
 
         assertTrue(elapsed < 100);
     }
-
+    /**
+     * Test response time for creating a new ticket
+     */
     @Test
     public void ticketDAOAccessTime() {
         long begin = System.currentTimeMillis();
@@ -74,6 +85,9 @@ public class PerformanceTests {
         assertTrue(elapsed < 100);
     }
 
+    /**
+     * Test response time for fetching ticket report
+     */
     @Test
     public void ticketReportDataTime() {
         long begin = System.currentTimeMillis();
@@ -85,6 +99,9 @@ public class PerformanceTests {
         assertTrue(elapsed < 100);
     }
 
+    /**
+     * Test response time for creating a new customer
+     */
     @Test
     public void customerDAOAccessTime() {
         long begin = System.currentTimeMillis();
@@ -96,6 +113,9 @@ public class PerformanceTests {
         assertTrue(elapsed < 100);
     }
 
+    /**
+     * Test response time for searching a customer
+     */
     @Test
     public void customerDAOSearchTime() {
         long begin = System.currentTimeMillis();
@@ -107,6 +127,9 @@ public class PerformanceTests {
         assertTrue(elapsed < 100);
     }
 
+    /**
+     * Test response time for creating a new database connection
+     */
     @Test
     public void databaseConnectionTime() {
         long begin = System.currentTimeMillis();
@@ -118,6 +141,10 @@ public class PerformanceTests {
         assertTrue(elapsed < 100);
     }
 
+    /**
+     * clean up DAOs and any inserted values
+     * @throws SQLException
+     */
     @AfterEach
     public void teardown() throws SQLException {
         PreparedStatement ps = con.prepareStatement("DELETE FROM flight"

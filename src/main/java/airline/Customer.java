@@ -1,3 +1,5 @@
+package airline;
+
 import java.awt.*;
 
 /**
@@ -16,10 +18,24 @@ public class Customer {
     private String passport;
 
 
-    /** Constructs a Customer instance with related values*/
+    /** Constructs a Customer instance with only ID populated*/
     public Customer(String id){
         this.id = id;
     }
+
+    /**
+     * Constructs a Customer instance with all fields populated
+     * @param id
+     * @param firstname
+     * @param lastname
+     * @param gender
+     * @param address
+     * @param dob
+     * @param contact
+     * @param userimage
+     * @param nic
+     * @param passport
+     */
     public Customer(String id, String firstname, String lastname, String gender, String address, String dob, Integer contact, byte[] userimage, String nic, String passport) {  // 1st (default) constructor
         this.id = id;
         this.firstname = firstname;
@@ -34,6 +50,11 @@ public class Customer {
     }
 
     /** Getters */
+
+    /**
+     * returns an array of all string values in customer
+     * @return
+     */
     public String[] getCustomerArray(){
         String[] array = {this.id, this.firstname,  this.lastname,this.gender, this.address,this.dob, this.nic, this.passport};
         return  array;
@@ -78,7 +99,7 @@ public class Customer {
     /** Setters */
 
     public void setID(String id) {
-       this.id = id;
+        this.id = id;
     }
     public void setNIC(String nic) {
         this.nic = nic;

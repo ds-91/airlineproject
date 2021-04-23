@@ -1,6 +1,10 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import airline.Customer;
+import airline.CustomerDAO;
+import airline.DatabaseManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +17,9 @@ public class CustomerTests {
     private Customer testCustomer;
     private String customerID;
 
+    /**
+     * Setup a new Customer Data Access Object and test customer to be tested with
+     */
     @BeforeEach
     public void setup() {
         DatabaseManager databaseManager = new DatabaseManager();
@@ -25,6 +32,9 @@ public class CustomerTests {
                 "dob", 1234567, userimage, "nic", "passport");
     }
 
+    /**
+     * Test createCustomer validation when adding a new valid customer
+     */
     @Test
     public void validCustomerCreation() {
         boolean success = this.customerDAO.createCustomer(testCustomer);
@@ -32,6 +42,9 @@ public class CustomerTests {
         Assertions.assertTrue(success);
     }
 
+    /**
+     * Test createCustomer validation when adding a new invalid customer
+     */
     @Test
     public void invalidNullCustomerCreation() {
         boolean success = this.customerDAO.createCustomer(null);
@@ -39,6 +52,9 @@ public class CustomerTests {
         Assertions.assertFalse(success);
     }
 
+    /**
+     * Test createCustomer validation when adding a invalid empty first name
+     */
     @Test
     public void invalidEmptyFieldCustomerCreation() {
         testCustomer.setFirstname("");
@@ -46,6 +62,9 @@ public class CustomerTests {
         Assertions.assertFalse(this.customerDAO.createCustomer(testCustomer));
     }
 
+    /**
+     * Test createCustomer validation when adding a invalid null first name
+     */
     @Test
     public void invalidNullFieldCustomerCreation() {
         testCustomer.setFirstname(null);
@@ -53,6 +72,9 @@ public class CustomerTests {
         Assertions.assertFalse(this.customerDAO.createCustomer(testCustomer));
     }
 
+    /**
+     * Test customer getters that the right information is received
+     */
     @Test
     public void validGetCustomerInformation() {
         Assertions.assertEquals("first_name", testCustomer.getFirstname());
@@ -65,6 +87,9 @@ public class CustomerTests {
         Assertions.assertEquals("passport", testCustomer.getPassport());
     }
 
+    /**
+     * Update a new customer and verify that the correct field and information was updated
+     */
     @Test
     public void validCustomerUpdateNoGUI() {
         Customer custUpdate = this.testCustomer;
@@ -74,12 +99,18 @@ public class CustomerTests {
         Assertions.assertTrue(success);
     }
 
+    /**
+     * Test customer search with preexisting known customer values to confirm
+     */
     @Test
     public void customerSearchNoGUI() {
         Customer custSearch = this.customerDAO.searchCustomer("CS001");
         Assertions.assertTrue(custSearch.getFirstname().equals("john"));
     }
 
+    /**
+     * Test that new autoID is unique from previous ones
+     */
     @Test
     public void validAutoID() {
         byte [] userimage = new byte[]{};
@@ -96,6 +127,9 @@ public class CustomerTests {
         Assertions.assertFalse(id1.equals(id2));
     }
 
+    /**
+     * Test that we can set and change Customer class member variables
+     */
     @Test
     public void changeCustomerInfo() {
         Customer custChange = this.testCustomer;
@@ -123,6 +157,9 @@ public class CustomerTests {
                 &&custChange.getNIC().equals(nic)&&custChange.getPassport().equals(passport));
     }
 
+    /**
+     * Test adding a new customer image
+     */
     @Test
     public void changeCustomerImage() {
         byte [] userimage = new byte[]{};
@@ -133,6 +170,9 @@ public class CustomerTests {
         Assertions.assertTrue(!testCustomer.getUserImage().equals(userimage));
     }
 
+    /**
+     * Test updating customer object's ID
+     */
     @Test
     public void changeCustomerID() {
         String OGID = "CS998";
@@ -143,11 +183,11 @@ public class CustomerTests {
 
         Assertions.assertTrue(!custChange.getID().equals(OGID));
     }
-    @Test
-    public void invalidDAOInsertionError() {
-// TODO check for sql exception handling
-    }
 
+    /**
+     * clean up test customer that was added and close connection
+     * @throws SQLException
+     */
     @AfterEach
     public void teardown() throws SQLException {
         PreparedStatement ps = this.con.prepareStatement("DELETE FROM customer"

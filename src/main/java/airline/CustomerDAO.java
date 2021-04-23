@@ -1,3 +1,5 @@
+package airline;
+
 import com.mysql.cj.util.StringUtils;
 import jdk.internal.joptsimple.internal.Strings;
 
@@ -16,11 +18,18 @@ public class CustomerDAO {
     private StringUtils utils;
     private Connection con;
 
+    /**
+     * Creates a new database object for all customer database operations
+     */
     public CustomerDAO() {
         this.databaseManager = new DatabaseManager();
         this.con = this.databaseManager.getDatabaseConnection();
     }
 
+    /**
+     * returns a unique ID to be inserted into the database for a successful new customer
+     * @return
+     */
     public String autoID() {
         try {
             Statement s = con.createStatement();
@@ -42,6 +51,11 @@ public class CustomerDAO {
         }
     }
 
+    /**
+     * Creates a new customer if all fields are properly populated in the Customer object
+     * @param customer
+     * @return
+     */
     public boolean createCustomer(Customer customer) {
         if (customer == null) {
             return false;
@@ -53,7 +67,7 @@ public class CustomerDAO {
                 customerArray) {
             if (StringUtils.isNullOrEmpty(string))
                 return false;
-             }
+        }
 
         int success = 0;
         try {
@@ -81,6 +95,11 @@ public class CustomerDAO {
         return success > 0;
     }
 
+    /**
+     * Updates a specific customer record in the database
+     * @param customer
+     * @return
+     */
     public boolean updateCustomer(Customer customer) {
         if (customer == null) {
             return false;
@@ -114,6 +133,11 @@ public class CustomerDAO {
         return success > 0;
     }
 
+    /**
+     * search for customer in database by ID
+     * @param id
+     * @return Customer
+     */
     public Customer searchCustomer(String id) {
         try {
             PreparedStatement pst =
