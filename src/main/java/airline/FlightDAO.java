@@ -4,14 +4,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Data Access Object class that handles the database calls for the flight class.
+ */
 public class FlightDAO {
 
     private DatabaseManager databaseManager;
 
+    /**
+     * Constructor initializes a new Database Manager.
+     */
     public FlightDAO() {
         this.databaseManager = new DatabaseManager();
     }
 
+    /**
+     * Takes a flight object and checks if it is null or any fields are null
+     * or empty. If nothing is null or empty then it is inserted into the DB.
+     * @param flight
+     * @return
+     */
     public boolean createFlight(Flight flight) {
         if (flight == null) {
             return false;

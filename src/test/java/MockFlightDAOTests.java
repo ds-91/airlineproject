@@ -14,6 +14,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+/**
+ * Integration tests using mocks to test the addflight GUI.
+ */
 public class MockFlightDAOTests {
 
     @Mock
@@ -25,6 +28,10 @@ public class MockFlightDAOTests {
     private Flight flight;
     private Robot robot;
 
+    /**
+     * Runs before each test to initialize mocks and to create a new flight object.
+     * @throws AWTException
+     */
     @BeforeEach
     public void setup() throws AWTException {
         MockitoAnnotations.initMocks(this);
@@ -34,6 +41,10 @@ public class MockFlightDAOTests {
         robot = new Robot();
     }
 
+    /**
+     * Tests if the flight DAO inserts a flight into the database using a mocked
+     * DAO.
+     */
     @Test
     public void createValidFlightFromGUI() {
         JButton buttonAddFlight = addFlight.getButtonAddFlight();
@@ -53,6 +64,9 @@ public class MockFlightDAOTests {
         Mockito.verify(mockDAO).createFlight(Mockito.any(Flight.class));
     }
 
+    /**
+     * Runs after each test to free up memory.
+     */
     @AfterEach
     public void teardown() {
         mockDAO = null;

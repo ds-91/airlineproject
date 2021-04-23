@@ -1,5 +1,9 @@
 package airline;
 
+/**
+ * Flight class. Class responsible for holding information about newly created
+ * flights.
+ */
 public class Flight {
 
     private String id;
@@ -11,6 +15,17 @@ public class Flight {
     private String arrtime;
     private String flightcharge;
 
+    /**
+     * Constructor for the Flight class
+     * @param id flight id
+     * @param flightname flight name
+     * @param source flight source
+     * @param depart where the flight departs from
+     * @param date date of the flight
+     * @param deptime flight depart time
+     * @param arrtime flight arrival time
+     * @param flightcharge cost of the flight
+     */
     public Flight(String id, String flightname, String source, String depart,
         String date, String deptime, String arrtime, String flightcharge) {
         this.id = id;
