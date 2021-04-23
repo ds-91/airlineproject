@@ -36,7 +36,9 @@ public class MockFlightDAOTests {
     public void setup() throws AWTException {
         MockitoAnnotations.initMocks(this);
         flight = new Flight("test_id", "test_name",
-            "test_source", "test_depart", "test_date",
+            "test_source", "test_depart", "test_da" +
+                "" +
+                "te",
             "test_deptime", "test_arrtime", "test_flightcharge");
         robot = new Robot();
     }

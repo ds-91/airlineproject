@@ -7,7 +7,7 @@ import java.sql.*;
  */
 public class DatabaseManager {
 
-  static final String DB_URL = "jdbc:mysql://localhost/airline";
+  static final String DB_URL = "jdbc:mysql://localhost/airlineproject";
 
   private Connection con;
 
@@ -16,7 +16,7 @@ public class DatabaseManager {
    */
   public DatabaseManager() {
     try {
-      con = DriverManager.getConnection(DB_URL, "root", "password");
+      con = DriverManager.getConnection(DB_URL, "root", "marko");
     } catch (SQLException e) {
       e.printStackTrace();
     }

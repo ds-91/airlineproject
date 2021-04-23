@@ -1,6 +1,3 @@
-import airline.Customer;
-import airline.CustomerDAO;
-import airline.DatabaseManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

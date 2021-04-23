@@ -1,5 +1,3 @@
-package airline;
-
 import java.awt.*;
 
 /**

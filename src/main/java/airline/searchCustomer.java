@@ -561,7 +561,7 @@ public class searchCustomer extends javax.swing.JInternalFrame {
   private void jButton2ActionPerformed(
       java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton2ActionPerformed
     // TODO add your handling code here:
-    if(!Strings.isNullOrEmpty(txtcustid.getText())) {
+    if(!txtcustid.getText().isEmpty()) {
     customer.setFirstname(txtfirstname.getText());
     customer.setLastname(txtlastname.getText());
     customer.setNIC(txtnic.getText());
