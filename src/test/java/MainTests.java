@@ -9,6 +9,12 @@ public class MainTests {
 
     private Main main;
 
+    /**
+     * The following getters test that the appropriately named UI elements exist on the page.
+     * They can all be categorized as GUI tests that handle the Main window that appears
+     * after logging in.
+     */
+
     @BeforeEach
     public void setup() {
         main = new Main();
@@ -73,6 +79,11 @@ public class MainTests {
     public void testGetMenuItemTicketReport() {
         Assertions.assertNotNull(main.getMenuItemTicketReport());
     }
+
+    /**
+     * The following methods test that the button UI elements on the menu of the main window
+     * function correctly as intended. It includes testing a working navigation to all other windows.
+     */
 
     @Test
     public void clickAddCustomerMenuItem() {
