@@ -21,7 +21,7 @@ public class UserDAOTest {
     public UserDAOTest() {
     }
 
-
+    //Testing that insert user can be correctly inserted into the database
     @Test
     public void validInsertUser() {
         Assertions.assertTrue(userDAO.insertNewUser(user));

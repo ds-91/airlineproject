@@ -19,6 +19,7 @@ public class UserTest {
     public UserTest() {
     }
 
+    //Testing insertion of user into the database
     @Test
     public void validUserCreation() {
         boolean success = this.userDAO.insertNewUser(testUser);
@@ -26,6 +27,7 @@ public class UserTest {
         Assertions.assertTrue(success);
     }
 
+    //Testing failed branch of inserting a new user into the database of null User
     @Test
     public void invalidNullUserCreation() {
         boolean success = this.userDAO.insertNewUser(null);
@@ -33,6 +35,7 @@ public class UserTest {
         Assertions.assertFalse(success);
     }
 
+    //Testing failed branch of inserting a new user into the database with empty Strings in member variable
     @Test
     public void invalidEmptyFieldUserCreation() {
         testUser.setFirstName("");
@@ -40,15 +43,15 @@ public class UserTest {
         Assertions.assertFalse(this.userDAO.insertNewUser(testUser));
     }
 
+    //Testing failed branch of inserting a new user into the database with null String in member variable
     @Test
-    public void invalidNullFieldFlightCreation() {
+    public void invalidNullFieldUserCreation() {
         testUser.setUsername(null);
 
         Assertions.assertFalse(this.userDAO.insertNewUser(testUser));
     }
 
-
-
+    //Testing valid first name of type User
     @Test
     public void firstNameValid() {
         User user = new User( "id", "firstName", "lastName", "username", "password");
@@ -57,6 +60,7 @@ public class UserTest {
         Assertions.assertNotEquals(null, user.getFirstName());
     }
 
+    //Testing valid last name of type User
     @Test
     public void lastNameValid() {
         User user = new User( "id", "firstName", "lastName", "username", "password");
@@ -65,6 +69,7 @@ public class UserTest {
         Assertions.assertNotEquals(null, user.getLastName());
     }
 
+    //Testing valid username of type User
     @Test
     public void usernameValid() {
         User user = new User( "id", "firstName", "lastName", "username", "password");
@@ -73,6 +78,7 @@ public class UserTest {
         Assertions.assertNotEquals(null, user.getUsername());
     }
 
+    //Testing valid password of type User
     @Test
     public void passwordValid() {
         User user = new User( "id","firstName", "lastName", "username", "password");
@@ -81,21 +87,21 @@ public class UserTest {
         Assertions.assertNotEquals(null, user.getPassword());
     }
 
-    @Test
-    public void firstNameValidTwo() {
-        User user = new User( "id", "firstName", "lastName", "username", "password");
-
-        Assertions.assertEquals("firstName", user.getFirstName());
-    }
-
+    //Testing setter methods of User object
     @Test
     public void validSetFlightInformation() {
         testUser.setUsername("username");
         testUser.setLastName("lastname");
         testUser.setPassword("password");
         testUser.setFirstName("firstname");
+
+        Assertions.assertEquals("username", testUser.getUsername());
+        Assertions.assertEquals("lastname", testUser.getLastName());
+        Assertions.assertEquals("password", testUser.getPassword());
+        Assertions.assertEquals("firstname", testUser.getFirstName());
     }
 
+    //Removes test users added to the database
     @Test
     public void teardown() throws SQLException {
         PreparedStatement ps = con.prepareStatement("delete from airline.user where username = \"username\";");

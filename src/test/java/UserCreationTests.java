@@ -16,6 +16,7 @@ public class UserCreationTests {
     FailOnThreadViolationRepaintManager.install();
   }
 
+  //Setting up the userCreation GUI tests by opening the window and clicking on the appropriate location
   @BeforeEach
   public void setUp() {
     Main frame = GuiActionRunner.execute(() -> new Main());
@@ -26,6 +27,7 @@ public class UserCreationTests {
     window.menuItem("userCreationMenuItem").click();
   }
 
+  //Testing the success of adding test fields in the userCreation field and clicking the buttonAddUser
   @Test
   public void testFirstName() {
     window.textBox("textUserName").setText("TEST_USER_NAME");
