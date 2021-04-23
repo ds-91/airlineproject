@@ -1,3 +1,7 @@
+/**
+ *  Ticket class for booking a ticket
+ */
+
 public class ticketC {
 
     private String id;
@@ -8,6 +12,7 @@ public class ticketC {
     private String seats;
     private String date;
 
+    /** Constructs a Ticket instance with related values*/
     ticketC (String id, String flightid, String custid, String classes, String price, String seats, String date ) {
         this.id = id;
         this.flightid = flightid;
@@ -17,7 +22,7 @@ public class ticketC {
         this.seats = seats;
         this.date = date;
     }
-
+    /** Getters and setter for all values related to ticket */
     public String getId() {
         return id;
     }

@@ -19,9 +19,12 @@ import javax.swing.table.DefaultTableModel;
  * and open the template in the editor.
  */
 
-public class ticket extends javax.swing.JInternalFrame {
+public class
 
-  /** Creates new form ticket */
+
+ticket extends javax.swing.JInternalFrame {
+
+  /* Creates new form ticket */
   public ticket() {
     initComponents();
     autoID();

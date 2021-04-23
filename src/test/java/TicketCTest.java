@@ -6,6 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
+/**
+ * Testing to make sure that the ticket is being created in the database
+ */
 public class TicketCTest {
 
     private Connection con;
@@ -50,6 +54,9 @@ public class TicketCTest {
         Assertions.assertFalse(this.ticketDAO.createTicket(testTicket));
     }
 
+    /**
+     * Make sure it is asserting the correct information of the ticket
+     */
     @Test
     public void validGetTicketInformation() {
         Assertions.assertEquals("test_id", testTicket.getId());

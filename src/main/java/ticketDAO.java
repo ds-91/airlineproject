@@ -2,6 +2,10 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+/**
+ * DAO class for ticket extracted object from the ticket class.
+ */
+
 public class ticketDAO {
 
     private DatabaseManager databaseManager;
